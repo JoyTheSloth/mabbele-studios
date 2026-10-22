@@ -87,25 +87,29 @@ export const Hero: React.FC = () => {
           >
             We help brands build <span className="text-brand">websites</span> &amp;{' '}
             <span className="text-gold-bright">applications</span>{' '}
-            <TextType
-              as="span"
-              prefix="that "
-              text={['captivate.', 'convert.', 'scale.', 'endure.']}
-              textColors={[
-                'var(--accent-cyan)',
-                'var(--accent-gold-bright)',
-                'var(--accent-teal)',
-                'var(--accent-cyan)',
-              ]}
-              typingSpeed={75}
-              deletingSpeed={40}
-              pauseDuration={1800}
-              initialDelay={900}
-              typeEffect="fade"
-              cursorStyle="bar"
-              cursorColor="var(--accent-cyan)"
-              cursorGlide
-            />
+            {/* Own line on phones: .text-type is inline-block, so its changing width
+                otherwise re-wraps the whole headline on every typed character. */}
+            <span className="block md:inline">
+              <TextType
+                as="span"
+                prefix="that "
+                text={['captivate.', 'convert.', 'scale.', 'endure.']}
+                textColors={[
+                  'var(--accent-cyan)',
+                  'var(--accent-gold-bright)',
+                  'var(--accent-teal)',
+                  'var(--accent-cyan)',
+                ]}
+                typingSpeed={75}
+                deletingSpeed={40}
+                pauseDuration={1800}
+                initialDelay={900}
+                typeEffect="fade"
+                cursorStyle="bar"
+                cursorColor="var(--accent-cyan)"
+                cursorGlide
+              />
+            </span>
           </motion.h1>
         </motion.div>
       </div>

@@ -1,0 +1,221 @@
+@import "tailwindcss";
+
+/* Class-based dark mode: `.dark` on <html> drives every `dark:` utility. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ------------------------------------------------------------------
+   Semantic tokens. Components use these utilities (bg-canvas, text-ink,
+   border-line, text-brand...) so both themes resolve from one vocabulary.
+   `inline` keeps utilities pointing at the live vars, so toggling the
+   `.dark` class repaints without regenerating CSS.
+------------------------------------------------------------------- */
+@theme inline {
+  --color-canvas: var(--bg-primary);
+  --color-deep: var(--bg-secondary);
+  --color-surface: var(--bg-surface);
+  --color-gallery: var(--bg-gallery);
+  --color-ink: var(--text-primary);
+  --color-muted: var(--text-secondary);
+  --color-line: var(--border-subtle);
+  --color-brand: var(--accent-cyan);
+  --color-leaf: var(--accent-teal);
+  --color-gold: var(--accent-gold);
+  --color-gold-bright: var(--accent-gold-bright);
+}
+
+:root {
+  color-scheme: light;
+
+  /* Backgrounds */
+  --bg-primary: #FAFAFC;
+  --bg-secondary: #0B1C33;
+  --bg-surface: #FFFFFF;
+  --bg-gallery: #E9EDF1;
+
+  /* Text */
+  --text-primary: #0B1C33;
+  --text-secondary: #5B6B7F;
+
+  /* Hairlines: opaque base + per-utility alpha, so /10 /15 /20 stay portable */
+  --border-subtle: #0B1C33;
+
+  /* Brand accents */
+  --accent-cyan: #1E8591;
+  --accent-teal: #10B981;
+  --accent-gold: #EBA83F;
+  --accent-gold-bright: #EBA83F;
+
+  /* Derived surfaces for glass + ambient light */
+  --glass-bg: rgba(255, 255, 255, 0.88);
+  --glass-bg-card: rgba(255, 255, 255, 0.82);
+  --glass-bg-card-hover: rgba(255, 255, 255, 0.98);
+  --glass-border: rgba(15, 76, 92, 0.12);
+  --glass-border-hover: rgba(30, 133, 145, 0.35);
+  --glass-shadow: rgba(11, 28, 51, 0.08);
+  --glass-shadow-hover: rgba(11, 28, 51, 0.12);
+  --grid-line: rgba(15, 76, 92, 0.08);
+  --grid-line-dense: rgba(30, 133, 145, 0.07);
+  --glow-teal: rgba(30, 133, 145, 0.12);
+  --glow-teal-far: rgba(15, 76, 92, 0.03);
+  --glow-gold: rgba(235, 168, 63, 0.12);
+}
+
+.dark {
+  color-scheme: dark;
+
+  /* Backgrounds */
+  --bg-primary: #1A1C1E;
+  --bg-secondary: #060F1B;
+  --bg-surface: #33383A;
+  --bg-gallery: #BBBEBC;
+
+  /* Text */
+  --text-primary: #D5D2CC;
+  --text-secondary: #9DA5A8;
+
+  /* White at ~15% over #1A1C1E reads as the sampled #3F3D3A hairline */
+  --border-subtle: #FFFFFF;
+
+  /* Brand accents */
+  --accent-cyan: #6FD5E1;
+  --accent-teal: #368C72;
+  --accent-gold: #A16911;
+  --accent-gold-bright: #EA952B;
+
+  --glass-bg: rgba(26, 28, 30, 0.72);
+  --glass-bg-card: rgba(35, 38, 41, 0.66);
+  --glass-bg-card-hover: rgba(51, 56, 58, 0.85);
+  --glass-border: rgba(255, 255, 255, 0.10);
+  --glass-border-hover: rgba(111, 213, 225, 0.35);
+  --glass-shadow: rgba(0, 0, 0, 0.55);
+  --glass-shadow-hover: rgba(0, 0, 0, 0.6);
+  --grid-line: rgba(255, 255, 255, 0.045);
+  --grid-line-dense: rgba(111, 213, 225, 0.05);
+  --glow-teal: rgba(111, 213, 225, 0.16);
+  --glow-teal-far: rgba(54, 140, 114, 0.06);
+  --glow-gold: rgba(234, 149, 43, 0.18);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  }
+
+  body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+}
+
+/* Lenis smooth scrolling: keep the real document scroll alive and let Lenis
+   own the easing, otherwise the browser's own smooth-scroll double-applies. */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent],
+.lenis.lenis-smooth [data-lenis-prevent-wheel] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* Background grid pattern */
+.bg-grid-pattern {
+  background-size: 40px 40px;
+  background-image:
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+}
+
+.bg-grid-pattern-dense {
+  background-size: 24px 24px;
+  background-image:
+    linear-gradient(to right, var(--grid-line-dense) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line-dense) 1px, transparent 1px);
+}
+
+/* Glassmorphism utilities */
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 10px 30px -10px var(--glass-shadow);
+}
+
+.glass-card {
+  background: var(--glass-bg-card);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 4px 20px -4px var(--glass-shadow);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card:hover {
+  background: var(--glass-bg-card-hover);
+  border-color: var(--glass-border-hover);
+  transform: translateY(-4px);
+  box-shadow:
+    0 20px 35px -10px var(--glass-shadow-hover),
+    0 0 24px -4px var(--glow-teal);
+}
+
+.glow-teal-subtle {
+  background: radial-gradient(circle, var(--glow-teal) 0%, var(--glow-teal-far) 50%, transparent 70%);
+}
+
+.glow-gold-subtle {
+  background: radial-gradient(circle, var(--glow-gold) 0%, transparent 70%);
+}
+
+@keyframes gentle-float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.animate-gentle-float {
+  animation: gentle-float 8s ease-in-out infinite;
+}
+
+@keyframes orbit-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-orbit-slow {
+  animation: orbit-spin 60s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/mabbele-logo.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mabbelle Studios — We Build Websites & Applications for Forward-Thinking Brands</title>
+    <meta name="description" content="Mabbelle Studios partners with ambitious brands to design and engineer bespoke websites, intelligent web applications, and digital flagship experiences that scale." />
+    
+    <!-- Open Graph Metadata -->
+    <meta property="og:title" content="Mabbelle Studios — Bespoke Websites & Applications for Brands" />
+    <meta property="og:description" content="We partner with modern brands to build high-performance websites, custom web applications, and intelligent digital products." />
+    <meta property="og:image" content="/mabbele-logo.png" />
+    <meta property="og:type" content="website" />
+    
+    <!-- Google Fonts Inter, Manrope, Syne & Space Grotesk -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+
+    <!-- Apply the saved theme before first paint to avoid a flash. Light is the default. -->
+    <script>
+      try {
+        if (localStorage.getItem('mabbelle-theme') === 'dark') {
+          document.documentElement.classList.add('dark');
+        }
+      } catch (e) { /* storage unavailable — stay light */ }
+    </script>
+  </head>
+  <body class="bg-canvas text-ink antialiased selection:bg-brand selection:text-ink">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

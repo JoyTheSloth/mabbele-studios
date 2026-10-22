@@ -100,7 +100,7 @@ export const Navbar: React.FC<NavbarProps> = () => {
 
         {/* Right cluster: theme, CTA, hamburger */}
         <div className="ml-auto flex items-stretch">
-          <div className={`hidden items-center border-l px-2 sm:flex ${HAIRLINE}`}>
+          <div className={`flex items-center border-l px-2 ${HAIRLINE}`}>
             <ThemeToggle className="rounded-none border-0 p-1.5" />
           </div>
 

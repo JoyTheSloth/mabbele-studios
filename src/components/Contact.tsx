@@ -8,10 +8,9 @@ interface ContactProps {
 const HAIRLINE = 'border-line/15'
 
 const PROJECT_TYPES = [
-  'School Website',
-  'Website + ERP',
-  'Website + ERP + Transactions',
-  'Complete Digital Campus',
+  'VidyaSetu School ERP Licence',
+  'Custom Business or Cafe Website',
+  'Custom School or College Website',
   'Custom Web Application',
   'Other',
 ]

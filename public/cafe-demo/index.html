@@ -1,0 +1,921 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>MOKSA — Slow coffee, loud music · Imphal</title>
+<meta name="description" content="MOKSA is a specialty coffee house and kitchen in Paona Bazaar, Imphal. Single origin roasts, sourdough baked daily, open till eleven." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bone: #F2EEE7;
+    --bone-2: #E8E2D8;
+    --ink: #17150F;
+    --ink-60: rgba(23, 21, 15, 0.6);
+    --ink-40: rgba(23, 21, 15, 0.4);
+    --ink-14: rgba(23, 21, 15, 0.14);
+    --terra: #C0562F;
+    --sage: #7C8A6B;
+    --clay: #D9C7B4;
+    --serif: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+    --sans: "Space Grotesk", "Helvetica Neue", Arial, sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+    --pad: clamp(20px, 5vw, 72px);
+    --max: 1320px;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  /* Lenis drives scrolling with its own rAF loop, so the browser's native
+     smooth scrolling has to be switched off while it is running. The .lenis
+     class only exists when the script actually initialised. */
+  html.lenis, html.lenis body { height: auto; }
+  html.lenis { scroll-behavior: auto; }
+  .lenis.lenis-stopped { overflow: clip; }
+  body {
+    margin: 0;
+    background: var(--bone);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.55;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* film grain over the whole page */
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 90;
+    pointer-events: none;
+    opacity: 0.32;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+    mix-blend-mode: multiply;
+  }
+
+  a { color: inherit; text-decoration: none; }
+  ul, ol { list-style: none; margin: 0; padding: 0; }
+  img { display: block; max-width: 100%; }
+
+  .wrap { width: 100%; max-width: var(--max); margin: 0 auto; padding-inline: var(--pad); }
+
+  .mono {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .display {
+    font-family: var(--serif);
+    font-weight: 400;
+    line-height: 0.92;
+    letter-spacing: -0.02em;
+    font-size: clamp(3rem, 13vw, 10.5rem);
+    margin: 0;
+  }
+
+  .h2 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(2.1rem, 6vw, 4.4rem);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin: 0;
+  }
+
+  .h3 {
+    font-family: var(--sans);
+    font-weight: 500;
+    font-size: clamp(1.15rem, 2.2vw, 1.55rem);
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+    margin: 0;
+  }
+
+  .lede {
+    font-size: clamp(1rem, 1.6vw, 1.2rem);
+    line-height: 1.5;
+    color: var(--ink-60);
+    max-width: 46ch;
+    margin: 0;
+  }
+
+  /* ─── nav ─── */
+  .nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 80;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 14px var(--pad);
+    background: color-mix(in srgb, var(--bone) 82%, transparent);
+    backdrop-filter: saturate(150%) blur(14px);
+    -webkit-backdrop-filter: saturate(150%) blur(14px);
+    border-bottom: 1px solid var(--ink-14);
+  }
+
+  .mark {
+    font-family: var(--serif);
+    font-size: 26px;
+    line-height: 1;
+    letter-spacing: 0.06em;
+  }
+  .mark sup { font-family: var(--mono); font-size: 8px; letter-spacing: 0.1em; color: var(--terra); }
+
+  .nav-links { display: none; gap: 30px; }
+  @media (min-width: 860px) { .nav-links { display: flex; } }
+  .nav-links a { position: relative; color: var(--ink-60); transition: color 240ms ease; }
+  .nav-links a::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: -6px;
+    height: 1px; background: var(--terra);
+    transform: scaleX(0); transform-origin: left; transition: transform 320ms cubic-bezier(.2,.8,.2,1);
+  }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-links a:hover::after { transform: scaleX(1); }
+
+  /* anchors must clear the fixed header when a menu link jumps you to a section */
+  section[id] { scroll-margin-top: 84px; }
+
+  /* phone menu — .nav-links is hidden below 860px, so the sections open in a sheet */
+  .nav-right { display: flex; align-items: center; gap: 10px; }
+  .nav-toggle {
+    display: none;
+    position: relative;
+    width: 42px; height: 42px; flex: none;
+    background: none; border: 1px solid var(--ink-14); border-radius: 999px;
+    color: var(--ink); cursor: pointer;
+  }
+  .nav-toggle i {
+    position: absolute; left: 13px; right: 13px; height: 1.5px;
+    background: currentColor; border-radius: 2px;
+    transition: transform 320ms cubic-bezier(.2,.8,.2,1);
+  }
+  .nav-toggle i:first-child { top: 17px; }
+  .nav-toggle i:last-child { top: 23px; }
+  .nav-toggle[aria-expanded="true"] i:first-child { transform: translateY(3px) rotate(45deg); }
+  .nav-toggle[aria-expanded="true"] i:last-child { transform: translateY(-3px) rotate(-45deg); }
+
+  .sheet {
+    display: none;
+    position: fixed; inset: 0; z-index: 70;
+    flex-direction: column; justify-content: space-between;
+    padding: 94px var(--pad) calc(28px + env(safe-area-inset-bottom));
+    background: var(--bone);
+    opacity: 0; visibility: hidden;
+    transition: opacity 320ms ease, visibility 320ms;
+  }
+  .sheet.is-open { opacity: 1; visibility: visible; }
+  .sheet li {
+    transform: translateY(14px); opacity: 0;
+    transition: transform 460ms cubic-bezier(.16,1,.3,1), opacity 460ms ease;
+  }
+  .sheet.is-open li { transform: none; opacity: 1; }
+  .sheet.is-open li:nth-child(2) { transition-delay: 60ms; }
+  .sheet.is-open li:nth-child(3) { transition-delay: 120ms; }
+  .sheet.is-open li:nth-child(4) { transition-delay: 180ms; }
+  .sheet ol a {
+    display: flex; align-items: baseline; gap: 14px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--ink-14);
+    font-family: var(--serif);
+    font-size: clamp(2.1rem, 11vw, 3.2rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+  }
+  .sheet ol a .n { font-family: var(--mono); font-size: 10px; letter-spacing: 0.16em; color: var(--terra); flex: none; }
+  .sheet-foot { display: grid; gap: 16px; justify-items: start; color: var(--ink-60); }
+  @media (max-width: 859px) {
+    .nav-toggle { display: block; }
+    .sheet { display: flex; }
+  }
+  body.nav-open { overflow: hidden; }
+  /* locking the page drops its scrollbar; hold the nav's right edge where it was */
+  body.nav-open .nav { padding-right: calc(var(--pad) + var(--sbw, 0px)); }
+
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 11px 20px;
+    border-radius: 999px;
+    background: var(--ink);
+    color: var(--bone);
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: background 260ms ease, transform 260ms cubic-bezier(.2,.8,.2,1);
+  }
+  .pill:hover { background: var(--terra); transform: translateY(-1px); }
+  .pill .dot { width: 6px; height: 6px; border-radius: 999px; background: var(--sage); }
+  .pill--ghost { background: transparent; color: var(--ink); border: 1px solid var(--ink); }
+  .pill--ghost:hover { background: var(--ink); color: var(--bone); }
+
+  /* ─── hero ─── */
+  .hero { padding-top: clamp(110px, 17vh, 190px); position: relative; }
+
+  .hero-eyebrow { display: flex; flex-wrap: wrap; gap: 10px 22px; align-items: center; color: var(--ink-60); }
+  .hero-eyebrow .sep { flex: 1 1 40px; height: 1px; background: var(--ink-14); min-width: 24px; }
+
+  .hero h1 { margin-top: 26px; }
+  .hero h1 em { font-style: italic; color: var(--terra); }
+  .hero h1 .line { display: block; overflow: hidden; padding: 0.26em 0.08em; margin: -0.26em -0.08em; }
+  /* The mask is padded taller than the line box so Instrument Serif's ascenders and
+     descenders aren't clipped, so the start position has to clear that padding too. */
+  .hero h1 .line > span { display: block; transform: translateY(140%); }
+  .ready .hero h1 .line > span { transform: translateY(0); transition: transform 1000ms cubic-bezier(.16,1,.3,1); }
+  .ready .hero h1 .line:nth-child(2) > span { transition-delay: 90ms; }
+  .ready .hero h1 .line:nth-child(3) > span { transition-delay: 180ms; }
+
+  .hero-foot {
+    display: grid;
+    gap: 26px;
+    margin-top: clamp(34px, 6vw, 66px);
+    padding-bottom: clamp(34px, 6vw, 60px);
+    border-bottom: 1px solid var(--ink-14);
+  }
+  @media (min-width: 900px) {
+    .hero-foot { grid-template-columns: minmax(0, 1fr) auto; align-items: end; }
+  }
+
+  /* headline left, drawn window right — the bare half of the hero carries the art.
+     Breakpoint and column width are sized so "loud music." never wraps: the masked
+     lines clip their own overflow, so a wrapped line would be cut in half. */
+  @media (min-width: 1180px) {
+    .hero-top {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(320px, 34%);
+      gap: clamp(34px, 4.5vw, 64px);
+      align-items: end;
+    }
+    .hero-art { margin-top: 0; }
+  }
+  .hero-art { margin-top: 38px; }
+  .hero-art figcaption { margin-top: 12px; color: var(--ink-40); }
+
+  /* the arch — a drawn window instead of a photo */
+  .arch {
+    position: relative;
+    aspect-ratio: 1 / 1.4;
+    border: 1px solid var(--ink-14);
+    border-radius: 999px 999px 6px 6px;
+    background:
+      radial-gradient(120% 80% at 50% 8%, var(--clay) 0%, color-mix(in srgb, var(--clay) 40%, var(--bone)) 52%, var(--bone) 100%);
+    overflow: hidden;
+  }
+  .arch svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .arch .sun {
+    position: absolute; left: 50%; top: 22%;
+    width: 34%; aspect-ratio: 1; transform: translate(-50%, -50%);
+    border-radius: 999px; background: var(--terra); opacity: 0.9;
+    animation: rise 1600ms cubic-bezier(.16,1,.3,1) both;
+  }
+  @keyframes rise { from { transform: translate(-50%, 60%); opacity: 0; } to { transform: translate(-50%, -50%); opacity: .9; } }
+
+  /* steam over the drawn cup — sits inside the arch, no photo needed */
+  .arch .steam { color: var(--ink-40); }
+  .arch .steam path { transform-box: fill-box; transform-origin: 50% 100%; animation: steam 3.8s ease-in-out infinite; }
+  .arch .steam path:nth-child(2) { animation-delay: .6s; }
+  .arch .steam path:nth-child(3) { animation-delay: 1.2s; }
+  @keyframes steam {
+    0%   { opacity: 0; transform: translateY(8px) scale(.86); }
+    28%  { opacity: .8; }
+    72%  { opacity: .3; }
+    100% { opacity: 0; transform: translateY(-16px) scale(1.14); }
+  }
+
+  .hero-meta { display: grid; gap: 14px; }
+  .hero-meta div { display: grid; gap: 2px; }
+  .hero-meta dt { color: var(--ink-40); }
+  .hero-meta dd { margin: 0; font-size: 14px; }
+
+  /* ─── ticker ─── */
+  .ticker {
+    display: flex; overflow: hidden; user-select: none;
+    background: var(--ink); color: var(--bone);
+    padding-block: 13px;
+  }
+  .ticker-track { display: flex; flex-shrink: 0; gap: 44px; padding-right: 44px; animation: slide 26s linear infinite; }
+  .ticker-track span { font-family: var(--mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; white-space: nowrap; }
+  .ticker-track span i { color: var(--terra); font-style: normal; }
+  @keyframes slide { to { transform: translateX(-100%); } }
+
+  /* ─── section frame ─── */
+  section { position: relative; }
+  .band { padding-block: clamp(64px, 11vw, 140px); }
+  .band--sage { background: var(--sage); color: #F4F2EC; }
+  .band--sage .mono { color: rgba(244,242,236,.65); }
+  .band--ink { background: var(--ink); color: var(--bone); }
+  .band--ink .mono { color: rgba(242,238,231,.5); }
+  .band--ink .lede { color: rgba(242,238,231,.7); }
+
+  .sec-head { display: grid; gap: 18px; margin-bottom: clamp(34px, 5vw, 58px); }
+  @media (min-width: 900px) { .sec-head { grid-template-columns: 1fr 1.15fr; align-items: end; gap: 40px; } }
+  .sec-num { display: flex; align-items: baseline; gap: 12px; }
+  .sec-num b { font-family: var(--serif); font-weight: 400; font-size: clamp(2.4rem, 5vw, 3.6rem); line-height: 1; color: var(--terra); }
+  .band--sage .sec-num b, .band--ink .sec-num b { color: var(--clay); }
+
+  /* ─── space / editorial ─── */
+  .split { display: grid; gap: clamp(28px, 5vw, 64px); }
+  @media (min-width: 900px) { .split { grid-template-columns: 1fr 1fr; } }
+
+  .panel {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid var(--ink-14);
+    background: linear-gradient(160deg, var(--bone-2), var(--clay));
+  }
+  .panel svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .panel--terra { background: linear-gradient(160deg, var(--terra), #8E3A1D); }
+  .panel--ink { background: linear-gradient(160deg, #2A2620, var(--ink)); }
+  .panel figcaption {
+    position: absolute; left: 14px; bottom: 12px;
+    color: rgba(242,238,231,.8);
+  }
+  .panel--terra figcaption, .panel--ink figcaption { color: rgba(242,238,231,.75); }
+  .panel--bone figcaption { color: var(--ink-40); }
+
+  .copy-stack { display: grid; gap: 22px; align-content: center; }
+
+  /* ─── menu ─── */
+  .menu-nav { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 34px; }
+  .chip {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 9px 16px; border-radius: 999px; cursor: pointer;
+    background: transparent; color: inherit;
+    border: 1px solid var(--ink-14);
+    transition: background 220ms ease, color 220ms ease, border-color 220ms ease;
+  }
+  .chip svg { width: 17px; height: 17px; flex: none; }
+  .band--sage .chip { border-color: rgba(244,242,236,.3); }
+  .chip:hover { border-color: currentColor; }
+  .chip[aria-pressed="true"] { background: var(--bone); color: var(--ink); border-color: var(--bone); }
+
+  .menu-list { display: grid; gap: 0; }
+  @media (min-width: 820px) { .menu-list { grid-template-columns: 1fr 1fr; column-gap: clamp(34px, 6vw, 90px); } }
+
+  .item {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: baseline;
+    gap: 4px 14px;
+    padding-block: 17px;
+    border-top: 1px solid rgba(244,242,236,.22);
+    transition: opacity 300ms ease, transform 300ms cubic-bezier(.2,.8,.2,1);
+  }
+  .item:first-child { border-top: 0; }
+  .item .n { font-family: var(--serif); font-size: clamp(1.35rem, 2.6vw, 1.9rem); line-height: 1.1; }
+  .item .p { font-family: var(--mono); font-size: 13px; }
+  .item .d { grid-column: 1 / -1; font-size: 13px; color: rgba(244,242,236,.6); }
+  .item[hidden] { display: none; }
+
+  /* ─── rooms ─── */
+  .rooms { display: grid; gap: 14px; }
+  @media (min-width: 860px) { .rooms { grid-template-columns: repeat(3, 1fr); } }
+  .room {
+    position: relative;
+    display: grid;
+    gap: 12px;
+    padding: 22px;
+    min-height: 260px;
+    align-content: space-between;
+    border: 1px solid var(--ink-14);
+    border-radius: 4px;
+    background: var(--bone);
+    overflow: hidden;
+    transition: transform 420ms cubic-bezier(.2,.8,.2,1), box-shadow 420ms ease;
+  }
+  .room:hover { transform: translateY(-6px); box-shadow: 0 22px 44px -26px rgba(23,21,15,.4); }
+  /* sized off the card height, not its width — a square drawing scaled to a wide
+     short card gets its legs and bases cut off */
+  .room .glyph { position: absolute; right: -4%; top: 8%; height: 74%; width: auto; opacity: .22; }
+  .room .glyph svg { height: 100%; width: auto; display: block; }
+  /* copy always paints above the drawing */
+  .room > div, .room > span.mono { position: relative; z-index: 1; }
+  .room span.mono { color: var(--ink-40); }
+
+  /* ─── numbers ─── */
+  .figures { display: grid; gap: 26px; }
+  @media (min-width: 700px) { .figures { grid-template-columns: repeat(4, 1fr); } }
+  .figure { display: grid; gap: 6px; padding-top: 16px; border-top: 1px solid var(--ink-14); }
+  .figure b { font-family: var(--serif); font-weight: 400; font-size: clamp(2.4rem, 6vw, 4rem); line-height: 1; }
+  .figure span:last-child { color: var(--ink-60); font-size: 13px; }
+
+  /* ─── visit ── */
+  .visit { display: grid; gap: clamp(30px, 5vw, 60px); }
+  @media (min-width: 900px) { .visit { grid-template-columns: 1.1fr 1fr; } }
+  .hours { width: 100%; border-collapse: collapse; margin-top: 8px; }
+  .hours td { padding-block: 12px; border-top: 1px solid rgba(242,238,231,.18); font-size: 14px; }
+  .hours tr:first-child td { border-top: 0; }
+  .hours td:last-child { text-align: right; font-family: var(--mono); font-size: 12px; }
+  .hours .today td { color: var(--clay); }
+
+  .addr { display: grid; gap: 6px; margin-top: 26px; }
+  .addr p { margin: 0; }
+
+  .cta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+
+  /* ─── footer ─── */
+  footer { padding-block: 44px 30px; border-top: 1px solid var(--ink-14); }
+  .wordmark {
+    font-family: var(--serif);
+    font-size: clamp(4rem, 26vw, 22rem);
+    line-height: 0.8;
+    letter-spacing: -0.03em;
+    margin: 0 0 26px;
+    color: var(--ink);
+  }
+  .foot-row { display: flex; flex-wrap: wrap; gap: 12px 26px; justify-content: space-between; color: var(--ink-40); }
+
+  /* ─── reveal ─── */
+  .rv { opacity: 0; transform: translateY(26px); }
+  .rv.in { opacity: 1; transform: none; transition: opacity 900ms ease, transform 900ms cubic-bezier(.16,1,.3,1); }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    .rv { opacity: 1; transform: none; }
+    .hero h1 .line > span { transform: none; }
+    .arch .sun { opacity: .9; }
+    .arch .steam { opacity: .5; }
+  }
+</style>
+<noscript><style>.rv{opacity:1;transform:none}.hero h1 .line>span{transform:none}</style></noscript>
+</head>
+<body>
+
+<header class="nav">
+  <a class="mark" href="#top">MOKSA<sup>01</sup></a>
+  <nav class="nav-links mono" aria-label="Sections">
+    <a href="#space">The space</a>
+    <a href="#menu">Menu</a>
+    <a href="#rooms">Rooms</a>
+    <a href="#visit">Visit</a>
+  </nav>
+  <div class="nav-right">
+    <a class="pill" href="#visit"><span class="dot"></span>Reserve</a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="sheet" aria-label="Open the menu">
+      <i aria-hidden="true"></i><i aria-hidden="true"></i>
+    </button>
+  </div>
+</header>
+
+<div class="sheet" id="sheet">
+  <ol>
+    <li><a href="#space"><span class="n">01</span>The space</a></li>
+    <li><a href="#menu"><span class="n">02</span>Menu</a></li>
+    <li><a href="#rooms"><span class="n">03</span>Rooms</a></li>
+    <li><a href="#visit"><span class="n">04</span>Visit</a></li>
+  </ol>
+  <div class="sheet-foot mono">
+    <span>Mon — Thu 08:00 — 22:00<br />Fri — Sat till 23:00 · Sun till 20:00</span>
+    <a class="pill" href="tel:+913812200000"><span class="dot"></span>Reserve a table</a>
+  </div>
+</div>
+
+<main id="top">
+
+  <!-- ─── HERO ─── -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-eyebrow mono">
+        <span>Paona Bazaar · Imphal</span>
+        <span class="sep" aria-hidden="true"></span>
+        <span>Est. 2026</span>
+        <span class="sep" aria-hidden="true"></span>
+        <span id="status">Open till 11</span>
+      </div>
+
+      <div class="hero-top">
+        <h1 class="display">
+          <span class="line"><span>slow</span></span>
+          <span class="line"><span><em>coffee,</em></span></span>
+          <span class="line"><span>loud music.</span></span>
+        </h1>
+
+        <figure class="hero-art">
+          <div class="arch" role="img" aria-label="A coffee cup steaming on a windowsill, with the sun rising behind an arched window">
+            <span class="sun" aria-hidden="true"></span>
+            <svg viewBox="0 0 400 560" fill="none" aria-hidden="true">
+              <path d="M60 560V190a140 140 0 0 1 280 0v370" stroke="rgba(23,21,15,.4)" stroke-width="1.5"/>
+              <path d="M104 560V200a96 96 0 0 1 192 0v360" stroke="rgba(23,21,15,.22)" stroke-width="1"/>
+              <path d="M200 96v464" stroke="rgba(23,21,15,.16)"/>
+              <path d="M60 268h280" stroke="rgba(23,21,15,.16)"/>
+              <g stroke="rgba(23,21,15,.5)" stroke-width="1.5">
+                <path d="M176 468h48l-6 28a9 9 0 0 1-9 7h-18a9 9 0 0 1-9-7Z"/>
+                <path d="M224 474c17 2 17 22 0 24"/>
+                <path d="M110 508h180" stroke-width="2"/>
+                <path d="M120 508v20M280 508v20" stroke-width="1"/>
+              </g>
+              <g class="steam" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                <path d="M188 462c-9-13 9-17 0-30"/>
+                <path d="M200 458c-10-15 10-20 0-36"/>
+                <path d="M212 462c-9-13 9-17 0-30"/>
+              </g>
+            </svg>
+          </div>
+          <figcaption class="mono">Fig. 00 — third-floor window, facing east</figcaption>
+        </figure>
+      </div>
+
+      <div class="hero-foot">
+        <p class="lede">A coffee house and small kitchen on the third floor of an old market building. Roasted in small batches, baked at five in the morning, and deliberately unhurried.</p>
+
+        <dl class="hero-meta">
+          <div><dt class="mono">Roast</dt><dd>Single origin · Chikmagalur</dd></div>
+          <div><dt class="mono">Kitchen</dt><dd>Nagaland smoke, Manipuri herbs</dd></div>
+          <div><dt class="mono">Seats</dt><dd>42, no minimum spend</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── TICKER ─── -->
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-track">
+      <span>Single origin <i>✳</i> Sourdough baked daily <i>✳</i> Vinyl only on weekends <i>✳</i> Open till eleven <i>✳</i> No laptops after six <i>✳</i></span>
+    </div>
+    <div class="ticker-track">
+      <span>Single origin <i>✳</i> Sourdough baked daily <i>✳</i> Vinyl only on weekends <i>✳</i> Open till eleven <i>✳</i> No laptops after six <i>✳</i></span>
+    </div>
+  </div>
+
+  <!-- ─── THE SPACE ─── -->
+  <section id="space" class="band">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <div class="sec-num"><b>01</b><span class="mono">The space</span></div>
+        <h2 class="h2">An old market floor,<br />left mostly as we found it.</h2>
+      </div>
+
+      <div class="split">
+        <figure class="panel panel--bone rv" role="img" aria-label="Line drawing of a cafe interior: a pendant lamp above a long table set with two cups of coffee">
+          <svg viewBox="0 0 400 500" fill="none" aria-hidden="true">
+            <g stroke="rgba(23,21,15,.18)">
+              <path d="M44 258v-72a44 44 0 0 1 88 0v72"/>
+              <path d="M268 258v-72a44 44 0 0 1 88 0v72"/>
+            </g>
+            <g stroke="rgba(23,21,15,.45)" stroke-width="1.5">
+              <path d="M200 0v70"/>
+              <path d="M162 112a38 38 0 0 1 76 0Z"/>
+              <rect x="44" y="300" width="312" height="12" rx="6"/>
+              <path d="M70 312v118M330 312v118"/>
+            </g>
+            <circle cx="200" cy="122" r="8" fill="rgba(192,86,47,.6)"/>
+            <g stroke="rgba(23,21,15,.5)" stroke-width="1.5">
+              <path d="M114 274h28l-4 20a6 6 0 0 1-6 5h-12a6 6 0 0 1-6-5Z"/>
+              <path d="M142 279c12 1 12 12 0 13"/>
+            </g>
+            <g stroke="rgba(23,21,15,.5)" stroke-width="1.5" transform="translate(144)">
+              <path d="M114 274h28l-4 20a6 6 0 0 1-6 5h-12a6 6 0 0 1-6-5Z"/>
+              <path d="M142 279c12 1 12 12 0 13"/>
+            </g>
+            <g class="steam" stroke="rgba(23,21,15,.35)" stroke-width="1.5" stroke-linecap="round">
+              <path d="M122 268c-5-8 5-10 0-16"/>
+              <path d="M134 268c-5-8 5-10 0-16"/>
+              <path d="M266 268c-5-8 5-10 0-16"/>
+              <path d="M278 268c-5-8 5-10 0-16"/>
+            </g>
+            <path d="M28 430h344" stroke="rgba(23,21,15,.14)"/>
+          </svg>
+          <figcaption class="mono">Fig. 01 — brass pendant, 1974</figcaption>
+        </figure>
+
+        <div class="copy-stack rv">
+          <p class="lede">We kept the terrazzo, the arched windows and the exposed brick. Everything else is quiet: two long oak tables, forty-two chairs that don’t match, and enough light to read by.</p>
+          <p class="lede">The counter faces the street so the room gets the evening. Music is vinyl on Fridays and Saturdays, and low enough to talk over the rest of the week.</p>
+          <div class="cta-row">
+            <a class="pill pill--ghost" href="#menu">See the menu</a>
+            <a class="pill pill--ghost" href="#visit">Find us</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── MENU ─── -->
+  <section id="menu" class="band band--sage">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <div class="sec-num"><b>02</b><span class="mono">Menu</span></div>
+        <h2 class="h2">Nine coffees,<br />six things to eat.</h2>
+      </div>
+
+      <div class="menu-nav rv" role="group" aria-label="Filter the menu">
+        <button class="chip" data-cat="all" aria-pressed="true">All</button>
+        <button class="chip" data-cat="coffee" aria-pressed="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4.5 10h10v4.5a3.5 3.5 0 0 1-3.5 3.5h-3A3.5 3.5 0 0 1 4.5 14.5Z"/>
+            <path d="M14.5 11c2.4.3 2.4 4 0 4.3"/>
+            <path d="M6 21h7.5"/>
+            <path d="M7.8 7.2 6.6 4.4M11.2 7.2 10 4.4" opacity=".55"/>
+          </svg>
+          <span>Coffee</span>
+        </button>
+        <button class="chip" data-cat="kitchen" aria-pressed="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3.5 15.5a8.5 8.5 0 0 1 17 0"/>
+            <path d="M2 19h20"/>
+            <circle cx="12" cy="5" r="1.2"/>
+            <path d="M12 6.4v1.4" opacity=".55"/>
+          </svg>
+          <span>Kitchen</span>
+        </button>
+        <button class="chip" data-cat="bakery" aria-pressed="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5.5 19v-6.6c0-3 2.9-5.4 6.5-5.4s6.5 2.4 6.5 5.4V19"/>
+            <path d="M3.5 19h17"/>
+            <path d="M9 10.2 7.8 13M12.4 9.8v3.2M15.6 10.2 16.8 13" opacity=".55"/>
+          </svg>
+          <span>Bakery</span>
+        </button>
+      </div>
+
+      <div class="menu-list rv" id="menuList">
+        <div class="item" data-cat="coffee"><span class="n">Espresso</span><span class="p">₹120</span><span class="d">House blend, two sugars worth of sweetness</span></div>
+        <div class="item" data-cat="coffee"><span class="n">Cortado</span><span class="p">₹140</span><span class="d">Equal parts, served in glass</span></div>
+        <div class="item" data-cat="coffee"><span class="n">Filter coffee</span><span class="p">₹90</span><span class="d">Chicory, decoction pot, the way it should be</span></div>
+        <div class="item" data-cat="coffee"><span class="n">Cold brew</span><span class="p">₹170</span><span class="d">Eighteen hours, over one large cube</span></div>
+        <div class="item" data-cat="coffee"><span class="n">Pour-over</span><span class="p">₹220</span><span class="d">Ask what’s open today — single origin, rotating</span></div>
+        <div class="item" data-cat="coffee"><span class="n">Iced matcha</span><span class="p">₹200</span><span class="d">Ceremonial grade, oat, no syrup</span></div>
+
+        <div class="item" data-cat="kitchen"><span class="n">Smoked pork sando</span><span class="p">₹290</span><span class="d">Nagaland-style smoke, mustard, milk bread</span></div>
+        <div class="item" data-cat="kitchen"><span class="n">Eromba bowl</span><span class="p">₹240</span><span class="d">Ngari, potato, spring onion, a lot of chilli</span></div>
+        <div class="item" data-cat="kitchen"><span class="n">Truffle eggs on toast</span><span class="p">₹280</span><span class="d">Soft scramble, chives, sourdough</span></div>
+        <div class="item" data-cat="kitchen"><span class="n">Bamboo shoot toast</span><span class="p">₹210</span><span class="d">Fermented bamboo, spring onion, chilli oil</span></div>
+
+        <div class="item" data-cat="bakery"><span class="n">Sourdough &amp; butter</span><span class="p">₹160</span><span class="d">Baked at five, cultured butter from Assam</span></div>
+        <div class="item" data-cat="bakery"><span class="n">Almond croissant</span><span class="p">₹180</span><span class="d">Laminated over three days</span></div>
+        <div class="item" data-cat="bakery"><span class="n">Banana bread</span><span class="p">₹140</span><span class="d">Brown butter glaze, sea salt</span></div>
+        <div class="item" data-cat="bakery"><span class="n">Pistachio bun</span><span class="p">₹190</span><span class="d">Cardamom cream, day-old only if you’re lucky</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── ROOMS ─── -->
+  <section id="rooms" class="band">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <div class="sec-num"><b>03</b><span class="mono">Rooms</span></div>
+        <h2 class="h2">Three floors,<br />three different volumes.</h2>
+      </div>
+
+      <div class="rooms">
+        <article class="room rv">
+          <span class="glyph" aria-hidden="true"><svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="18" y="52" width="56" height="34" rx="3"/>
+            <path d="M30 52V42h32v10"/>
+            <circle cx="46" cy="69" r="7"/>
+            <path d="M74 62c7 0 7 12 0 12"/>
+            <path d="M12 86h96"/>
+            <path d="M86 78h14v8H86zM88 78v-5h10v5"/>
+            <path d="M92 73v-5" opacity=".5"/>
+          </svg></span>
+          <span class="mono">Ground</span>
+          <div>
+            <h3 class="h3">The counter</h3>
+            <p class="lede">Standing room, the roaster behind glass, and the street below the window.</p>
+          </div>
+        </article>
+
+        <article class="room rv">
+          <span class="glyph" aria-hidden="true"><svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="14" y="56" width="92" height="7" rx="3.5"/>
+            <path d="M24 63v34M96 63v34"/>
+            <path d="M14 97h14M92 97h14" opacity=".5"/>
+            <circle cx="42" cy="50" r="6"/>
+            <path d="M48 50c4 0 4 6 0 6" opacity=".7"/>
+            <circle cx="72" cy="50" r="6"/>
+            <path d="M78 50c4 0 4 6 0 6" opacity=".7"/>
+            <path d="M40 44v-5M44 44v-5M70 44v-5M74 44v-5" stroke-width="1.5" opacity=".45"/>
+          </svg></span>
+          <span class="mono">First</span>
+          <div>
+            <h3 class="h3">Long table</h3>
+            <p class="lede">One six-metre oak slab. Strangers sit together. Laptops welcome until six.</p>
+          </div>
+        </article>
+
+        <article class="room rv">
+          <span class="glyph" aria-hidden="true"><svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M24 52a26 26 0 0 1 52 0Z"/>
+            <path d="M50 52v34M42 94h16"/>
+            <path d="M32 52v9M68 52v9" opacity=".5"/>
+            <path d="M96 94V76"/>
+            <circle cx="96" cy="66" r="11"/>
+            <path d="M86 94h20M90 94v-8h12v8"/>
+            <path d="M12 96h96" opacity=".6"/>
+          </svg></span>
+          <span class="mono">Terrace</span>
+          <div>
+            <h3 class="h3">The roof</h3>
+            <p class="lede">Eight tables, fig tree, and the best light in the city around five o’clock.</p>
+          </div>
+        </article>
+      </div>
+
+      <div class="figures rv" style="margin-top: clamp(48px, 8vw, 90px)">
+        <div class="figure"><b>42</b><span>seats across three floors</span></div>
+        <div class="figure"><b>05:00</b><span>the bake starts</span></div>
+        <div class="figure"><b>2</b><span>roasts on the bar, always</span></div>
+        <div class="figure"><b>₹0</b><span>minimum spend, no booking fee</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── VISIT ─── -->
+  <section id="visit" class="band band--ink">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <div class="sec-num"><b>04</b><span class="mono">Visit</span></div>
+        <h2 class="h2">Third floor, Paona Bazaar.<br />Take the stairs.</h2>
+      </div>
+
+      <div class="visit">
+        <div class="rv">
+          <table class="hours">
+            <tbody>
+              <tr><td>Monday — Thursday</td><td>08:00 — 22:00</td></tr>
+              <tr><td>Friday — Saturday</td><td>08:00 — 23:00</td></tr>
+              <tr><td>Sunday</td><td>09:00 — 20:00</td></tr>
+              <tr><td>Kitchen closes</td><td>45 min before us</td></tr>
+            </tbody>
+          </table>
+
+          <div class="addr">
+            <span class="mono">Address</span>
+            <p>3rd Floor, Paona Bazaar Main Road<br />Imphal, Manipur 795 001</p>
+            <span class="mono" style="margin-top:14px">Contact</span>
+            <p><a href="tel:+913812200000">+91 381 220 0000</a> · <a href="mailto:hello@moksa.cafe">hello@moksa.cafe</a></p>
+          </div>
+        </div>
+
+        <div class="rv">
+          <figure class="panel panel--terra" role="img" aria-label="Abstract line drawing of a map pin and street grid">
+            <svg viewBox="0 0 400 500" fill="none" aria-hidden="true">
+              <g stroke="rgba(242,238,231,.35)">
+                <path d="M0 120h400M0 240h400M0 360h400M90 0v500M200 0v500M310 0v500"/>
+              </g>
+              <path d="M200 150c40 0 72 32 72 72 0 54-72 128-72 128s-72-74-72-128c0-40 32-72 72-72Z" stroke="rgba(242,238,231,.9)" stroke-width="2"/>
+              <circle cx="200" cy="222" r="20" fill="rgba(242,238,231,.9)"/>
+            </svg>
+            <figcaption class="mono">24.8170° N, 93.9368° E</figcaption>
+          </figure>
+          <div class="cta-row">
+            <a class="pill" href="https://maps.google.com/?q=Paona+Bazaar+Imphal" target="_blank" rel="noopener noreferrer"><span class="dot"></span>Open in Maps</a>
+            <a class="pill pill--ghost" href="tel:+913812200000">Call the room</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p class="wordmark">MOKSA</p>
+    <div class="foot-row mono">
+      <span>© 2026 MOKSA Coffee House</span>
+      <span>Instagram · <a href="#top">@moksa.imphal</a></span>
+      <span>Imphal, Manipur</span>
+    </div>
+  </div>
+</footer>
+
+
+<script src="./lenis.min.js"></script>
+<script>
+  // Smooth scrolling — same feel as the studio site: interpolated wheel,
+  // the platform's own momentum on touch. Absent or unwanted Lenis simply
+  // leaves the page on native scrolling.
+  var lenis = null;
+  (function () {
+    if (!window.Lenis || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    lenis = new window.Lenis({ autoRaf: true, lerp: 0.1 });
+
+    // every in-page link goes through Lenis, otherwise the native jump and the
+    // rAF loop fight over the scroll position
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest ? e.target.closest('a[href^="#"]') : null;
+      if (!a) return;
+      var hash = a.getAttribute('href');
+      var target = hash.length > 1 ? document.querySelector(hash) : null;
+      if (!target) return;
+      e.preventDefault();
+      // Lenis reads the target's scroll-margin-top itself, so the 84px nav
+      // clearance set in CSS carries over without being passed in here
+      lenis.scrollTo(target);
+      history.pushState(null, '', hash);
+    });
+  })();
+
+  // Entrance — rAF so the first paint keeps the pre-transition state;
+  // the timer is a fallback for contexts where rAF never fires.
+  var enter = function () { document.body.classList.add('ready'); };
+  requestAnimationFrame(enter);
+  setTimeout(enter, 300);
+
+  // Scroll reveals
+  var revealables = document.querySelectorAll('.rv');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry, i) {
+        if (!entry.isIntersecting) return;
+        var el = entry.target;
+        setTimeout(function () { el.classList.add('in'); }, i * 70);
+        io.unobserve(el);
+      });
+    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.08 });
+    revealables.forEach(function (el) { io.observe(el); });
+  } else {
+    revealables.forEach(function (el) { el.classList.add('in'); });
+  }
+
+  // Menu filter
+  var chips = document.querySelectorAll('.chip');
+  var items = document.querySelectorAll('#menuList .item');
+  chips.forEach(function (chip) {
+    chip.addEventListener('click', function () {
+      chips.forEach(function (c) { c.setAttribute('aria-pressed', String(c === chip)); });
+      var cat = chip.dataset.cat;
+      items.forEach(function (item) {
+        item.hidden = !(cat === 'all' || item.dataset.cat === cat);
+      });
+    });
+  });
+
+  // Live open/closed status
+  (function () {
+    var el = document.getElementById('status');
+    var now = new Date();
+    var day = now.getDay();
+    var mins = now.getHours() * 60 + now.getMinutes();
+    var close = day === 0 ? 20 * 60 : (day === 5 || day === 6 ? 23 * 60 : 22 * 60);
+    var open = day === 0 ? 9 * 60 : 8 * 60;
+    var isOpen = mins >= open && mins < close;
+    el.textContent = isOpen ? 'Open now — till ' + String(Math.floor(close / 60)).padStart(2, '0') + ':00' : 'Closed · opens ' + String(open / 60).toFixed(0) + ':00';
+    var dot = document.querySelector('.pill .dot');
+    if (dot && !isOpen) dot.style.background = 'rgba(242,238,231,.35)';
+  })();
+
+  // Highlight today's row
+  (function () {
+    var day = new Date().getDay();
+    var rows = document.querySelectorAll('.hours tr');
+    var idx = day === 0 ? 2 : (day >= 1 && day <= 4 ? 0 : 1);
+    if (rows[idx]) rows[idx].classList.add('today');
+  })();
+  // Phone menu sheet
+  (function () {
+    var btn = document.querySelector('.nav-toggle');
+    var sheet = document.getElementById('sheet');
+    if (!btn || !sheet) return;
+
+    function setOpen(open) {
+      // locking the page removes its scrollbar; keep the fixed nav's right edge
+      // where it was so the bar doesn't jump sideways as the sheet opens
+      var sbw = window.innerWidth - document.documentElement.clientWidth;
+      document.documentElement.style.setProperty('--sbw', open && sbw > 0 ? sbw + 'px' : '0px');
+      sheet.classList.toggle('is-open', open);
+      btn.setAttribute('aria-expanded', String(open));
+      btn.setAttribute('aria-label', open ? 'Close the menu' : 'Open the menu');
+      document.body.classList.toggle('nav-open', open);
+      // body.nav-open still locks scrolling if Lenis never loaded
+      if (lenis) open ? lenis.stop() : lenis.start();
+    }
+
+    btn.addEventListener('click', function () {
+      setOpen(!sheet.classList.contains('is-open'));
+    });
+    sheet.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function () { setOpen(false); });
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && sheet.classList.contains('is-open')) {
+        setOpen(false);
+        btn.focus();
+      }
+    });
+    // the sheet is hidden at >=860px, so don't leave the page scroll-locked
+    // if the window is widened while it is open
+    window.addEventListener('resize', function () {
+      if (window.innerWidth >= 860 && sheet.classList.contains('is-open')) setOpen(false);
+    });
+  })();
+</script>
+
+</body>
+</html>

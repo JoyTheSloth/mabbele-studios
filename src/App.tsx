@@ -7,6 +7,7 @@ import { SmoothScroll } from './components/SmoothScroll'
 import { HomePage } from './pages/HomePage'
 import { AboutPage } from './pages/AboutPage'
 import { ServicesPage } from './pages/ServicesPage'
+import { ServiceDetailPage } from './pages/ServiceDetailPage'
 import { WorkPage } from './pages/WorkPage'
 import { ProcessPage } from './pages/ProcessPage'
 import { ContactPage } from './pages/ContactPage'
@@ -41,6 +42,7 @@ export function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/services" element={<ServicesPage />} />
+          <Route path="/services/:slug" element={<ServiceDetailPage />} />
           <Route path="/work" element={<WorkPage />} />
           <Route path="/process" element={<ProcessPage />} />
           <Route path="/contact" element={<ContactPage />} />

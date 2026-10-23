@@ -14,10 +14,10 @@ const EXPLORE_LINKS = [
 ]
 
 const BUILD_ITEMS: [string, string][] = [
-  ['VidyaSetu ERP', 'Website, ERP, online fees & branded Android app'],
-  ['School Websites', 'From ₹9,999 — fast, mobile-first, Google ready'],
-  ['Complete Digital Campus', 'Full package starting ₹1,19,000'],
-  ['Straight Terms', 'NDA, signed contract & 30% advance'],
+  ['VidyaSetu School ERP', '₹99,000 permanent licence — self-hosted, no renewal'],
+  ['Business & Cafe Websites', 'From ₹4,999 — fast, mobile-first, Google ready'],
+  ['School & College Websites', 'From ₹11,999 — academics, admissions & notices'],
+  ['Straight Terms', 'NDA, signed contract & staged payments'],
 ]
 
 export const Footer: React.FC = () => {
@@ -44,7 +44,7 @@ export const Footer: React.FC = () => {
             Put your school online with VidyaSetu ERP.
           </h3>
           <p className="mt-4 max-w-xl text-sm leading-relaxed text-muted sm:text-base">
-            Pick a package, we build and deploy it — website, admissions, attendance, fees and your
+            Pick a service, we build and deploy it — website, admissions, attendance, fees and your
             branded Android app.
           </p>
 
@@ -60,7 +60,7 @@ export const Footer: React.FC = () => {
               to="/services"
               className={`group flex items-center justify-between gap-3 bg-canvas px-6 py-4 text-xs font-bold uppercase tracking-wider text-ink transition-colors hover:bg-ink hover:text-canvas`}
             >
-              <span>See all packages</span>
+              <span>See all services</span>
               <ArrowUpRight className="h-4 w-4 stroke-[2.5] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </Link>
           </div>

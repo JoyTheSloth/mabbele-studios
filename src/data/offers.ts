@@ -30,8 +30,8 @@ export interface Offer {
   enquiryLabel: string
   summary: string
   highlights: string[]
-/** Live sample builds, each opened in a new tab. */
-samples?: { label: string; href: string; image?: string }[]
+  /** Live sample builds, each opened in a new tab. */
+  samples?: { label: string; href: string; image: string }[]
   detail: {
     heading: string
     intro: string

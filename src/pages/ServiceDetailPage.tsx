@@ -102,17 +102,27 @@ export const ServiceDetailPage: React.FC = () => {
         <p className="mt-5 max-w-2xl text-sm leading-relaxed text-muted sm:text-base">{detail.intro}</p>
 
         {offer.samples && (
-          <div className="mt-7 flex flex-wrap gap-3">
+          <div className="mt-7 grid max-w-4xl gap-4 sm:grid-cols-2">
             {offer.samples.map((sample) => (
               <a
                 key={sample.href}
                 href={sample.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`group/demo inline-flex items-center justify-between gap-6 border bg-deep px-6 py-4 text-xs font-bold uppercase tracking-wider text-white transition-colors hover:bg-brand ${HAIRLINE}`}
+                className={`group/demo block overflow-hidden border bg-deep transition-colors hover:bg-brand ${HAIRLINE}`}
               >
-                <span>{sample.label} — built by us</span>
-                <ExternalLink className="h-4 w-4 stroke-[2.5] transition-transform group-hover/demo:-translate-y-0.5 group-hover/demo:translate-x-0.5" />
+                <span className="block aspect-[16/9] overflow-hidden border-b border-white/15">
+                  <img
+                    src={sample.image}
+                    alt={`${sample.label} preview`}
+                    loading="lazy"
+                    className="h-full w-full object-cover object-top transition-transform duration-500 group-hover/demo:scale-[1.03]"
+                  />
+                </span>
+                <span className="flex items-center justify-between gap-3 px-5 py-3.5 text-xs font-bold uppercase tracking-wider text-white">
+                  <span>{sample.label} — built by us</span>
+                  <ExternalLink className="h-4 w-4 shrink-0 stroke-[2.5] transition-transform group-hover/demo:-translate-y-0.5 group-hover/demo:translate-x-0.5" />
+                </span>
               </a>
             ))}
           </div>

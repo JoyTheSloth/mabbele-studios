@@ -1,21 +1,23 @@
-import React from 'react'
+import { Suspense, lazy } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { Navbar } from './components/Navbar'
 import { Footer } from './components/Footer'
 import { ScrollToTop } from './components/ScrollToTop'
 import { SmoothScroll } from './components/SmoothScroll'
-import { HomePage } from './pages/HomePage'
-import { AboutPage } from './pages/AboutPage'
-import { ServicesPage } from './pages/ServicesPage'
-import { ServiceDetailPage } from './pages/ServiceDetailPage'
-import { WorkPage } from './pages/WorkPage'
-import { ProcessPage } from './pages/ProcessPage'
-import { ContactPage } from './pages/ContactPage'
+
+const HomePage = lazy(() => import('./pages/HomePage'))
+const AboutPage = lazy(() => import('./pages/AboutPage'))
+const ServicesPage = lazy(() => import('./pages/ServicesPage'))
+const ServiceDetailPage = lazy(() => import('./pages/ServiceDetailPage'))
+const WorkPage = lazy(() => import('./pages/WorkPage'))
+const ProcessPage = lazy(() => import('./pages/ProcessPage'))
+const ContactPage = lazy(() => import('./pages/ContactPage'))
+const NotFoundPage = lazy(() => import('./pages/NotFoundPage'))
 
 export function App() {
   return (
     <div className="relative min-h-screen bg-canvas text-ink selection:bg-brand selection:text-white flex flex-col justify-between">
-      {/* Scroll restoration helper */}
+      {/* Scroll restoration & per-route metadata helper */}
       <ScrollToTop />
 
       {/* Inertial wheel scrolling (skipped under prefers-reduced-motion) */}
@@ -38,15 +40,18 @@ export function App() {
 
       {/* Dynamic Page Router */}
       <main className="relative z-10 flex-grow">
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/services" element={<ServicesPage />} />
-          <Route path="/services/:slug" element={<ServiceDetailPage />} />
-          <Route path="/work" element={<WorkPage />} />
-          <Route path="/process" element={<ProcessPage />} />
-          <Route path="/contact" element={<ContactPage />} />
-        </Routes>
+        <Suspense fallback={<div className="min-h-[80vh]" aria-busy="true" />}>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/services" element={<ServicesPage />} />
+            <Route path="/services/:slug" element={<ServiceDetailPage />} />
+            <Route path="/work" element={<WorkPage />} />
+            <Route path="/process" element={<ProcessPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+        </Suspense>
       </main>
 
       {/* Global Footer with multi-page navigation */}

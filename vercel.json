@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/((?!cafe-demo|lazeez-demo|hamlet-demo).*)",
+      "destination": "/index.html"
+    }
+  ]
+}

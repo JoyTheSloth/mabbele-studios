@@ -220,7 +220,7 @@ export default function BounceCards({
       const py = event.clientY - rect.top - rect.height / 2;
       let best = -1;
       let distance = Infinity;
-      s.slots.forEach((slot, i) => {
+      s.slots.forEach((slot) => {
         const gap = Math.abs(px - slot.x);
         if (gap < distance) {
           distance = gap;
@@ -315,7 +315,6 @@ export default function BounceCards({
       style={{
         width: containerWidth,
         height: containerHeight,
-        // @ts-ignore
         '--bounce-cards-size': `${settings.cardSize}px`,
         '--bounce-cards-border': `${Math.max(0, borderWidth)}px`,
         '--bounce-cards-border-color': borderColor,
@@ -327,7 +326,7 @@ export default function BounceCards({
           ? '0 2px 4px rgba(0, 0, 0, 0.14), 0 22px 44px -10px rgba(0, 0, 0, 0.42)'
           : 'none',
         ...style
-      }}
+      } as React.CSSProperties}
     >
       {cards.map((card, i) => (
         <div

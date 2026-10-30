@@ -34,9 +34,6 @@ const FADE_IN = {
 
 const HAIRLINE = 'border-line/15'
 
-/** Joydeep's project archive — the portfolio CTA points here rather than the in-app Work page. */
-const PORTFOLIO_URL = 'https://joydeepdas-portfolio.vercel.app/projects'
-
 const CAPABILITIES = [
   { icon: Globe, label: 'Brand Websites' },
   { icon: Layout, label: 'Web Applications' },
@@ -162,7 +159,7 @@ export const Hero: React.FC = () => {
               Imphal · North-East India
             </p>
             <p className="mt-4 text-[clamp(2.4rem,8vw,5rem)] font-extrabold leading-[0.9] tracking-[-0.05em] text-ink">
-              mabbele
+              mabbelle
               <span className="block text-brand">studios</span>
             </p>
             <p className="mt-5 flex items-center gap-2.5 font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
@@ -234,16 +231,14 @@ export const Hero: React.FC = () => {
                 <ArrowUpRight className="h-4 w-4 stroke-[2.5]" />
               </motion.button>
 
-              <motion.a
+              <motion.button
                 whileTap={{ scale: 0.99 }}
-                href={PORTFOLIO_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-between gap-3 bg-canvas px-5 py-4 text-[13px] font-bold tracking-wider text-ink uppercase transition-colors duration-200 hover:bg-line/[0.06]"
+                onClick={() => navigate('/work')}
+                className="flex cursor-pointer items-center justify-between gap-3 bg-canvas px-5 py-4 text-[13px] font-bold tracking-wider text-ink uppercase transition-colors duration-200 hover:bg-line/[0.06]"
               >
                 <span>View our portfolio</span>
                 <Play className="h-3.5 w-3.5 fill-current" />
-              </motion.a>
+              </motion.button>
             </div>
 
             {/* Capability cells */}

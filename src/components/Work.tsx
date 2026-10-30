@@ -50,6 +50,17 @@ const MENU_FEATURES = [
 
 const MENU_STACK = ['HTML', 'CSS', 'Vanilla JS']
 
+const HAMLET_URL = '/hamlet-demo/index.html'
+
+const HAMLET_FEATURES = [
+  'Painterly hero drawn entirely as inline SVG, in the brand’s own landscape palette',
+  'The oval cartouche from the logo rebuilt as a stretched vector frame, so type never clips',
+  'Live open or closed status, checked against the house hours in local time',
+  'Weekly hours table that marks today, plus both flipbook menus wired in',
+]
+
+const HAMLET_STACK = ['HTML', 'CSS', 'Vanilla JS']
+
 export const Work: React.FC = () => {
   return (
     <section
@@ -90,11 +101,12 @@ export const Work: React.FC = () => {
 
       {/* ─── Featured project ─── */}
       <motion.div
+        id="vidyasetu"
         initial={{ opacity: 0, y: 22 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-60px' }}
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        className={`grid gap-px border bg-line/15 lg:grid-cols-12 ${HAIRLINE}`}
+        className={`scroll-mt-20 grid gap-px border bg-line/15 lg:grid-cols-12 ${HAIRLINE}`}
       >
         {/* Preview cell */}
         <a
@@ -210,11 +222,12 @@ export const Work: React.FC = () => {
 
       {/* ─── Sample build — cafe site ─── */}
       <motion.div
+        id="moksa"
         initial={{ opacity: 0, y: 22 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-60px' }}
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        className={`mt-16 grid gap-px border bg-line/15 lg:grid-cols-12 ${HAIRLINE}`}
+        className={`scroll-mt-20 mt-16 grid gap-px border bg-line/15 lg:grid-cols-12 ${HAIRLINE}`}
       >
         {/* Preview cell */}
         <a
@@ -314,11 +327,12 @@ export const Work: React.FC = () => {
 
       {/* ─── Sample build — restaurant menu card ─── */}
       <motion.div
+        id="lazeez"
         initial={{ opacity: 0, y: 22 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-60px' }}
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        className={`mt-16 grid gap-px border bg-line/15 lg:grid-cols-12 ${HAIRLINE}`}
+        className={`scroll-mt-20 mt-16 grid gap-px border bg-line/15 lg:grid-cols-12 ${HAIRLINE}`}
       >
         {/* Preview cell */}
         <a
@@ -415,6 +429,141 @@ export const Work: React.FC = () => {
           </div>
         </div>
       </motion.div>
+
+      {/* ─── Sample build — restaurant & tea room ─── */}
+      <motion.div
+        id="hamlet"
+        initial={{ opacity: 0, y: 22 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-60px' }}
+        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        className={`scroll-mt-20 mt-16 grid gap-px border bg-line/15 lg:grid-cols-12 ${HAIRLINE}`}
+      >
+        {/* Preview cell */}
+        <a
+          href={HAMLET_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group relative flex flex-col bg-deep lg:col-span-7"
+          aria-label="Open the Hamlet Restaurant and Tea Room sample site in a new tab"
+        >
+          <div className="flex items-center gap-3 border-b border-white/15 px-5 py-3">
+            <span className="flex items-center gap-1.5">
+              <span className="h-2 w-2 bg-white/25" />
+              <span className="h-2 w-2 bg-white/25" />
+              <span className="h-2 w-2 bg-white/25" />
+            </span>
+            <span className="flex-1 truncate border border-white/15 bg-black/25 px-3 py-1 font-mono text-[10px] tracking-wider text-white/60">
+              /hamlet-demo/index.html
+            </span>
+            <span className="hidden font-mono text-[10px] tracking-wider text-gold-bright uppercase sm:inline">
+              Sample
+            </span>
+          </div>
+
+          <img
+            src="/127.0.0.1_5173-Hamlet%20Restaurant%20Tea%20Room-cvscreenshot.png"
+            alt="Hamlet Restaurant and Tea Room website — editorial typography beside a restaurant interior"
+            loading="lazy"
+            className="block w-full"
+          />
+
+          <div className="flex flex-1 items-center justify-between gap-4 border-t border-white/15 bg-deep px-5 py-3 font-mono text-[10px] tracking-wider text-white/45 uppercase">
+            <span>Tea room · Live hours · Vector art</span>
+            <span className="inline-flex items-center gap-1 text-gold-bright transition-transform group-hover:translate-x-0.5">
+              Open sample <ArrowUpRight className="h-3 w-3" />
+            </span>
+          </div>
+        </a>
+
+        {/* Details cell */}
+        <div className="flex flex-col justify-between bg-canvas p-7 sm:p-9 lg:col-span-5">
+          <div>
+            <span className="font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-brand">
+              Restaurant Website · Sample build
+            </span>
+            <h3 className="mt-3 text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">
+              Hamlet Restaurant &amp; Tea Room
+            </h3>
+            <p className="mt-2 text-sm leading-relaxed text-muted">
+              A one-page site for a restaurant and tea room — the colours and the oval cartouche taken
+              straight from the brand mark, then built out into hours, menus and reservations.
+            </p>
+
+            <ul className={`mt-7 space-y-2.5 border-t pt-6 ${HAIRLINE}`}>
+              {HAMLET_FEATURES.map((feature) => (
+                <li key={feature} className="flex items-start gap-2.5 text-[13px] leading-snug">
+                  <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center bg-leaf/15 text-leaf">
+                    <Check className="h-2.5 w-2.5 stroke-[3]" />
+                  </span>
+                  <span className="text-ink/85">{feature}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="mt-8">
+            <div className="flex flex-wrap gap-1.5">
+              {HAMLET_STACK.map((tech) => (
+                <span
+                  key={tech}
+                  className={`border px-2.5 py-1 font-mono text-[10px] tracking-wider text-brand ${HAIRLINE}`}
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
+
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+              <a
+                href={HAMLET_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex flex-1 items-center justify-center gap-2 bg-gold-bright px-5 py-3.5 text-xs font-bold uppercase tracking-wider text-deep transition-colors hover:bg-deep hover:text-gold-bright"
+              >
+                <span>View sample</span>
+                <ArrowUpRight className="h-3.5 w-3.5 stroke-[2.5]" />
+              </a>
+              <Link
+                to="/services/business-cafe-website"
+                className={`inline-flex flex-1 items-center justify-center gap-2 border bg-surface px-5 py-3.5 text-xs font-bold uppercase tracking-wider text-ink transition-colors hover:bg-ink hover:text-canvas ${HAIRLINE}`}
+              >
+                <span>See the package</span>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+
+      <motion.article
+        id="ulfat"
+        initial={{ opacity: 0, y: 22 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        className={`scroll-mt-20 mt-16 grid gap-px border bg-line/15 lg:grid-cols-12 ${HAIRLINE}`}
+      >
+        <a href="/ulfat-demo/index.html" target="_blank" rel="noopener noreferrer" className="group relative flex flex-col justify-center overflow-hidden bg-[#20382f] lg:col-span-7" aria-label="Open the Ulfat-a-Khas hotel concept in a new tab">
+          <img
+            src="/127.0.0.1_5173-Ulfat-a-Khas%20A%20place%20for%20the%20unhurried-cvscreenshot.png"
+            alt="Ulfat-a-Khas boutique hotel website — heritage-inspired editorial hero and palace photography"
+            loading="lazy"
+            className="block h-auto w-full"
+          />
+        </a>
+        <div className="flex flex-col justify-center bg-canvas p-7 sm:p-9 lg:col-span-5">
+          <span className="font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-brand">Boutique Hotel · Concept demo</span>
+          <h3 className="mt-3 text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">Ulfat-a-Khas</h3>
+          <p className="mt-3 text-sm leading-relaxed text-muted">A vintage hospitality concept blending Mughal-inspired arches, Kashmiri-inspired ornament and Northeast-inspired woven textures with walnut, oxblood and antique brass.</p>
+          <ul className="mt-6 space-y-3 text-[13px] leading-relaxed text-ink/85">
+            <li>Editorial suites, dining and craftsmanship galleries</li>
+            <li>Responsive navigation and an interactive local stay planner</li>
+            <li>Clearly labelled fictional hotel; no bookings or personal data collected</li>
+          </ul>
+          <a href="/ulfat-demo/index.html" target="_blank" rel="noopener noreferrer" className="mt-8 inline-flex items-center justify-between gap-3 bg-gold-bright px-5 py-3.5 text-xs font-bold uppercase tracking-wider text-deep transition-colors hover:bg-deep hover:text-gold-bright">
+            View hotel concept <ArrowUpRight className="h-4 w-4" />
+          </a>
+        </div>
+      </motion.article>
 
       {/* ─── Deployment facts strip ─── */}
       <div className={`mt-8 grid gap-px border bg-line/15 sm:grid-cols-2 lg:grid-cols-4 ${HAIRLINE}`}>

@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
-import { Send, Check, AlertCircle, MapPin, ArrowUpRight } from 'lucide-react'
+import { Send, Check, AlertCircle, MapPin, ArrowUpRight, Copy, Mail } from 'lucide-react'
 
 interface ContactProps {
   initialService?: string
 }
 
 const HAIRLINE = 'border-line/15'
+const STUDIO_EMAIL = 'hello@mabbellestudios.com'
 
 const PROJECT_TYPES = [
   'VidyaSetu School ERP Licence',
@@ -44,12 +45,54 @@ export const Contact: React.FC<ContactProps> = ({ initialService }) => {
 
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [status, setStatus] = useState<'idle' | 'submitted'>('idle')
+  const [copied, setCopied] = useState(false)
 
   React.useEffect(() => {
     if (initialService) {
       setFormData((prev) => ({ ...prev, projectType: initialService }))
     }
   }, [initialService])
+
+  const updateField = (field: keyof typeof formData, value: string) => {
+    setFormData((prev) => ({ ...prev, [field]: value }))
+    if (errors[field]) {
+      setErrors((prev) => {
+        const next = { ...prev }
+        delete next[field]
+        return next
+      })
+    }
+  }
+
+  const formatBriefText = () =>
+    [
+      `Project Enquiry — ${formData.projectType}`,
+      `----------------------------------------`,
+      `Name: ${formData.name}`,
+      `Email: ${formData.email}`,
+      `School / Organization: ${formData.school || '—'}`,
+      `Requirement: ${formData.projectType}`,
+      `Estimated Budget: ${formData.budget || '—'}`,
+      ``,
+      `Details:`,
+      formData.description,
+    ].join('\n')
+
+  const buildMailtoHref = () => {
+    const subject = encodeURIComponent(`Project Enquiry: ${formData.projectType} — ${formData.name}`)
+    const body = encodeURIComponent(formatBriefText())
+    return `mailto:${STUDIO_EMAIL}?subject=${subject}&body=${body}`
+  }
+
+  const handleCopyBrief = async () => {
+    try {
+      await navigator.clipboard.writeText(formatBriefText())
+      setCopied(true)
+      window.setTimeout(() => setCopied(false), 2500)
+    } catch {
+      /* clipboard unavailable */
+    }
+  }
 
   const validate = () => {
     const errs: Record<string, string> = {}
@@ -76,9 +119,13 @@ export const Contact: React.FC<ContactProps> = ({ initialService }) => {
     setStatus('submitted')
   }
 
-  const errorText = (message?: string) =>
+  const errorText = (id: string, message?: string) =>
     message ? (
-      <p className="mt-1.5 flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider text-red-500">
+      <p
+        id={id}
+        role="alert"
+        className="mt-1.5 flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider text-red-500"
+      >
         <AlertCircle className="h-3 w-3" /> {message}
       </p>
     ) : null
@@ -147,11 +194,11 @@ export const Contact: React.FC<ContactProps> = ({ initialService }) => {
                 <span className="flex h-9 w-9 items-center justify-center bg-leaf/15 text-leaf">
                   <Check className="h-4 w-4 stroke-[3]" />
                 </span>
-                <h3 className="text-xl font-bold tracking-tight text-ink">Enquiry prepared</h3>
+                <h3 className="text-xl font-bold tracking-tight text-ink">Enquiry ready to send</h3>
               </div>
               <p className="mt-4 text-sm leading-relaxed text-muted">
-                Your brief has been validated. This preview has no mail server connected, so nothing has
-                left the browser yet — here is exactly what would be sent.
+                Your project brief is validated and formatted below. Send it directly via your email
+                client or copy the brief to share with us on WhatsApp or email.
               </p>
 
               <div className={`mt-7 border ${HAIRLINE}`}>
@@ -161,31 +208,51 @@ export const Contact: React.FC<ContactProps> = ({ initialService }) => {
                   ['School / Organization', formData.school || '—'],
                   ['Requirement', formData.projectType],
                   ['Budget', formData.budget || '—'],
+                  ['Brief', formData.description],
                 ].map(([label, value], i, arr) => (
                   <div
                     key={label}
-                    className={`grid grid-cols-1 gap-1 px-5 py-3 sm:grid-cols-3 sm:items-center ${
+                    className={`grid grid-cols-1 gap-1 px-5 py-3 sm:grid-cols-3 sm:items-start ${
                       i < arr.length - 1 ? `border-b ${HAIRLINE}` : ''
                     }`}
                   >
                     <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted">
                       {label}
                     </span>
-                    <span className="truncate text-[13px] font-medium text-ink sm:col-span-2">
+                    <span className="break-words text-[13px] font-medium text-ink sm:col-span-2">
                       {value}
                     </span>
                   </div>
                 ))}
               </div>
 
-              <button
-                type="button"
-                onClick={() => setStatus('idle')}
-                className={`mt-7 inline-flex cursor-pointer items-center gap-2 border bg-surface px-5 py-3 font-mono text-[11px] uppercase tracking-wider text-ink transition-colors hover:bg-ink hover:text-canvas ${HAIRLINE}`}
-              >
-                <span>Edit enquiry</span>
-                <ArrowUpRight className="h-3.5 w-3.5" />
-              </button>
+              <div className="mt-7 flex flex-wrap items-center gap-3">
+                <a
+                  href={buildMailtoHref()}
+                  className="inline-flex items-center gap-2 bg-gold-bright px-5 py-3 font-mono text-[11px] font-bold uppercase tracking-wider text-deep transition-colors hover:bg-deep hover:text-gold-bright"
+                >
+                  <Mail className="h-3.5 w-3.5" />
+                  <span>Open in Email App</span>
+                </a>
+
+                <button
+                  type="button"
+                  onClick={handleCopyBrief}
+                  className={`inline-flex cursor-pointer items-center gap-2 border bg-surface px-5 py-3 font-mono text-[11px] uppercase tracking-wider text-ink transition-colors hover:bg-ink hover:text-canvas ${HAIRLINE}`}
+                >
+                  {copied ? <Check className="h-3.5 w-3.5 text-leaf" /> : <Copy className="h-3.5 w-3.5" />}
+                  <span>{copied ? 'Brief copied' : 'Copy brief'}</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setStatus('idle')}
+                  className={`inline-flex cursor-pointer items-center gap-2 border bg-canvas px-5 py-3 font-mono text-[11px] uppercase tracking-wider text-muted transition-colors hover:text-ink ${HAIRLINE}`}
+                >
+                  <span>Edit enquiry</span>
+                  <ArrowUpRight className="h-3.5 w-3.5" />
+                </button>
+              </div>
             </div>
           ) : (
             <form onSubmit={handleSubmit} noValidate>
@@ -210,12 +277,13 @@ export const Contact: React.FC<ContactProps> = ({ initialService }) => {
                     id="name"
                     type="text"
                     value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    onChange={(e) => updateField('name', e.target.value)}
                     placeholder="Jane Doe"
                     aria-invalid={Boolean(errors.name)}
+                    aria-describedby={errors.name ? 'name-error' : undefined}
                     className={`${FIELD_BASE} ${errors.name ? 'border-red-500' : HAIRLINE}`}
                   />
-                  {errorText(errors.name)}
+                  {errorText('name-error', errors.name)}
                 </div>
 
                 <div>
@@ -229,12 +297,13 @@ export const Contact: React.FC<ContactProps> = ({ initialService }) => {
                     id="email"
                     type="email"
                     value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    onChange={(e) => updateField('email', e.target.value)}
                     placeholder="jane@school.edu"
                     aria-invalid={Boolean(errors.email)}
+                    aria-describedby={errors.email ? 'email-error' : undefined}
                     className={`${FIELD_BASE} ${errors.email ? 'border-red-500' : HAIRLINE}`}
                   />
-                  {errorText(errors.email)}
+                  {errorText('email-error', errors.email)}
                 </div>
               </div>
 
@@ -316,14 +385,15 @@ export const Contact: React.FC<ContactProps> = ({ initialService }) => {
                   id="description"
                   rows={4}
                   value={formData.description}
-                  onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                  onChange={(e) => updateField('description', e.target.value)}
                   placeholder="Number of students, what you manage on paper or Excel today, and what you want to fix first..."
                   aria-invalid={Boolean(errors.description)}
+                  aria-describedby={errors.description ? 'description-error' : undefined}
                   className={`${FIELD_BASE} resize-none ${
                     errors.description ? 'border-red-500' : HAIRLINE
                   }`}
                 />
-                {errorText(errors.description)}
+                {errorText('description-error', errors.description)}
               </div>
 
               <button

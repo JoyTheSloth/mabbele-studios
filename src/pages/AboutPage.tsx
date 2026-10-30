@@ -1,5 +1,4 @@
 import React from 'react'
-import { motion } from 'framer-motion'
 import { About } from '../components/About'
 import { Link } from 'react-router-dom'
 import { ArrowUpRight } from 'lucide-react'

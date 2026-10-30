@@ -4,42 +4,42 @@ import { FlexCarousel } from '../components/FlexCarousel'
 import { About } from '../components/About'
 
 const carouselItems = [
-  { 
-    src: 'https://images.unsplash.com/photo-1737071371043-761e02b1ef95?w=1200&q=80&auto=format&fit=max', 
-    alt: 'Iridescent metallic generative form', 
-    title: 'Iridescence', 
-    subtitle: 'Brand Research' 
+  {
+    src: 'https://images.unsplash.com/photo-1737071371043-761e02b1ef95?w=1200&q=80&auto=format&fit=max',
+    alt: 'Iridescent metallic generative form',
+    title: 'Iridescence',
+    subtitle: 'Brand Research',
   },
-  { 
-    src: 'https://images.unsplash.com/photo-1693645325828-62cd35c8da8f?w=1200&q=80&auto=format&fit=max', 
-    alt: 'Minimal architectural interface', 
-    title: 'White Room', 
-    subtitle: 'Interface Design' 
+  {
+    src: 'https://images.unsplash.com/photo-1693645325828-62cd35c8da8f?w=1200&q=80&auto=format&fit=max',
+    alt: 'Minimal architectural interface',
+    title: 'White Room',
+    subtitle: 'Interface Design',
   },
-  { 
-    src: 'https://images.unsplash.com/photo-1739056238917-d89cd05c48d5?w=1200&q=80&auto=format&fit=max', 
-    alt: 'Liquid chrome generative sculpture', 
-    title: 'Liquid Metal', 
-    subtitle: 'Digital Products' 
+  {
+    src: 'https://images.unsplash.com/photo-1739056238917-d89cd05c48d5?w=1200&q=80&auto=format&fit=max',
+    alt: 'Liquid chrome generative sculpture',
+    title: 'Liquid Metal',
+    subtitle: 'Digital Products',
   },
-  { 
-    src: 'https://images.unsplash.com/photo-1747191092806-c7da11881986?w=1200&q=80&auto=format&fit=max', 
-    alt: 'Clay sculptural form', 
-    title: 'Clay Study', 
-    subtitle: 'Tactile Ergonomics' 
+  {
+    src: 'https://images.unsplash.com/photo-1747191092806-c7da11881986?w=1200&q=80&auto=format&fit=max',
+    alt: 'Clay sculptural form',
+    title: 'Clay Study',
+    subtitle: 'Tactile Ergonomics',
   },
-  { 
-    src: 'https://images.unsplash.com/photo-1770249196550-ff6c641165cb?w=1200&q=80&auto=format&fit=max', 
-    alt: 'Intelligent autonomous system sculpture', 
-    title: 'Automaton', 
-    subtitle: 'Web Applications' 
+  {
+    src: 'https://images.unsplash.com/photo-1770249196550-ff6c641165cb?w=1200&q=80&auto=format&fit=max',
+    alt: 'Intelligent autonomous system sculpture',
+    title: 'Automaton',
+    subtitle: 'Web Applications',
   },
-  { 
-    src: 'https://images.unsplash.com/photo-1786835568925-20cd20007ed0?w=1200&q=80&auto=format&fit=max', 
-    alt: 'Dynamic fluid topology', 
-    title: 'Three Forms', 
-    subtitle: 'Modern Flagships' 
-  }
+  {
+    src: 'https://images.unsplash.com/photo-1786835568925-20cd20007ed0?w=1200&q=80&auto=format&fit=max',
+    alt: 'Dynamic fluid topology',
+    title: 'Three Forms',
+    subtitle: 'Modern Flagships',
+  },
 ]
 
 export const HomePage: React.FC = () => {

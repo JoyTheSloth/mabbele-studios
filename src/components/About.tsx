@@ -1,14 +1,26 @@
 import React, { useState, useSyncExternalStore } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ArrowUpRight, Plus, Minus, School, Users, Globe, Code2, Sparkles, Database, ShieldCheck } from 'lucide-react'
+import { ArrowUpRight, Plus, Minus, School } from 'lucide-react'
+import { Link } from 'react-router-dom'
 import BounceCards from './BounceCards'
 
 /** Painted width of the 380px stack, spread included. */
 const STACK_PAINTED_WIDTH = 407
 
 const subscribeViewport = (onStoreChange: () => void) => {
-  window.addEventListener('resize', onStoreChange)
-  return () => window.removeEventListener('resize', onStoreChange)
+  let rafId = 0
+  const handleResize = () => {
+    if (rafId) return
+    rafId = window.requestAnimationFrame(() => {
+      rafId = 0
+      onStoreChange()
+    })
+  }
+  window.addEventListener('resize', handleResize, { passive: true })
+  return () => {
+    if (rafId) window.cancelAnimationFrame(rafId)
+    window.removeEventListener('resize', handleResize)
+  }
 }
 
 /** The banner clips overflow, so scale every linear dimension of the stack to
@@ -16,7 +28,8 @@ const subscribeViewport = (onStoreChange: () => void) => {
 const getStackScale = () => {
   const vw = window.innerWidth
   const gutter = vw >= 640 ? 160 : 104
-  return Math.min(1, Math.max(0.5, (vw - gutter) / STACK_PAINTED_WIDTH))
+  const raw = Math.min(1, Math.max(0.5, (vw - gutter) / STACK_PAINTED_WIDTH))
+  return Math.round(raw * 100) / 100
 }
 
 export const About: React.FC = () => {
@@ -166,11 +179,26 @@ export const About: React.FC = () => {
             <div className="relative flex-shrink-0 flex items-center justify-center pt-4 lg:pt-0">
               <BounceCards
                 images={[
-                  'https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=480&h=480&fit=crop', // Classroom / School campus
-                  'https://images.unsplash.com/photo-1509062522246-3755977927d7?w=480&h=480&fit=crop', // Students learning
-                  'https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=480&h=480&fit=crop', // Group discussion / modern education
-                  'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=480&h=480&fit=crop', // Digital dashboard / software
-                  'https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=480&h=480&fit=crop'  // Library / student campus
+                  {
+                    src: 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=480&h=480&fit=crop',
+                    alt: 'Modern school classroom campus',
+                  },
+                  {
+                    src: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?w=480&h=480&fit=crop',
+                    alt: 'Students learning in class',
+                  },
+                  {
+                    src: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=480&h=480&fit=crop',
+                    alt: 'Collaborative group discussion',
+                  },
+                  {
+                    src: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=480&h=480&fit=crop',
+                    alt: 'Digital administration dashboard',
+                  },
+                  {
+                    src: 'https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=480&h=480&fit=crop',
+                    alt: 'School library and student study space',
+                  },
                 ]}
                 containerWidth={380 * stackScale}
                 containerHeight={280 * stackScale}
@@ -203,12 +231,14 @@ export const About: React.FC = () => {
           <div className="divide-y divide-line/12 border-y border-line/12">
             {processItems.map((item) => {
               const isOpen = openProcess === item.id
+              const panelId = `process-panel-${item.id}`
               return (
                 <div key={item.id} className="py-5 transition-colors hover:bg-line/[0.04]">
                   <button
                     onClick={() => toggleProcess(item.id)}
-                    className="w-full flex items-center justify-between text-left group focus:outline-none cursor-pointer"
+                    className="w-full flex items-center justify-between text-left group rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-brand cursor-pointer"
                     aria-expanded={isOpen}
+                    aria-controls={panelId}
                   >
                     <div className="flex items-center gap-6 sm:gap-12">
                       <span className="font-mono text-xs font-semibold text-brand tracking-widest">
@@ -226,6 +256,7 @@ export const About: React.FC = () => {
                   <AnimatePresence>
                     {isOpen && (
                       <motion.div
+                        id={panelId}
                         initial={{ opacity: 0, height: 0 }}
                         animate={{ opacity: 1, height: 'auto' }}
                         exit={{ opacity: 0, height: 0 }}
@@ -256,13 +287,13 @@ export const About: React.FC = () => {
               Let’s discuss your requirements and walk through a demo of our customized solutions.
             </p>
           </div>
-          <a
-            href="/contact"
+          <Link
+            to="/contact"
             className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-deep text-white text-xs font-bold uppercase tracking-wider hover:bg-brand transition-colors whitespace-nowrap"
           >
             Get In Touch
             <ArrowUpRight className="w-4 h-4 stroke-[2.5]" />
-          </a>
+          </Link>
         </div>
 
       </div>

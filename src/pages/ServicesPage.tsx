@@ -1,7 +1,7 @@
 import React from 'react'
 import { Services } from '../components/Services'
 import { Link, useNavigate } from 'react-router-dom'
-import { ArrowUpRight, CheckCircle2 } from 'lucide-react'
+import { ArrowUpRight } from 'lucide-react'
 
 export const ServicesPage: React.FC = () => {
   const navigate = useNavigate()

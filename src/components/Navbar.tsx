@@ -4,10 +4,6 @@ import { Menu, X, ArrowUpRight, ChevronDown } from 'lucide-react'
 import { Link, useLocation } from 'react-router-dom'
 import { ThemeToggle } from './ThemeToggle'
 
-interface NavbarProps {
-  onStartProject?: () => void
-}
-
 const HAIRLINE = 'border-line/15'
 
 interface MenuEntry {
@@ -66,27 +62,31 @@ const SERVICES_PANEL: MenuPanel = {
 const WORK_PANEL: MenuPanel = {
   entries: [
     {
-      title: 'Admin ERP Console',
-      meta: 'Staff',
-      blurb: 'Notices, admissions and the school’s whole record set behind role-based access.',
+      title: 'VidyaSetu School ERP',
+      meta: 'Live ERP',
+      blurb: 'Institutional website, admissions, attendance, fees and role-based portals.',
+      to: '/work#vidyasetu',
     },
     {
-      title: 'Teacher Attendance',
-      meta: 'Daily',
-      blurb: 'Mark a class in seconds; attendance feeds digital notes and subject-wise reports.',
+      title: 'MOKSA Coffee House',
+      meta: 'Cafe Demo',
+      blurb: 'Editorial specialty cafe site with filterable menu, rooms and live open hours.',
+      to: '/work#moksa',
     },
     {
-      title: 'Parent Fee & Reports',
-      meta: 'Parents',
-      blurb: 'Fee status, payment history and report cards surfaced directly to parents.',
+      title: 'Lazeez-a-Gulmarg',
+      meta: 'Menu Card',
+      blurb: 'Printed-style digital menu card across four cuisines with dish photography.',
+      to: '/work#lazeez',
     },
     {
-      title: 'Student Portal',
-      meta: 'Students',
-      blurb: 'Timetable, homework and marks, scoped so each student sees only their own data.',
+      title: 'Hamlet Restaurant & Tea Room',
+      meta: 'Tea Room',
+      blurb: 'Inline vector landscape hero, live house hours and flipbook menus.',
+      to: '/work#hamlet',
     },
   ],
-  footerLabel: 'Open the live portal',
+  footerLabel: 'Open the live ERP portal',
   footerTo: 'https://vidya-setu-kappa.vercel.app/',
   footerExternal: true,
 }
@@ -199,10 +199,15 @@ const NavDropdown: React.FC<{ link: NavLink; isActive: boolean }> = ({ link, isA
   )
 }
 
-export const Navbar: React.FC<NavbarProps> = () => {
+export const Navbar: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const location = useLocation()
+
+  const isRouteActive = (path: string) =>
+    path === '/'
+      ? location.pathname === '/'
+      : location.pathname === path || location.pathname.startsWith(`${path}/`)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -258,7 +263,7 @@ export const Navbar: React.FC<NavbarProps> = () => {
         {/* Desktop link cells */}
         <div className="hidden flex-1 items-stretch md:flex">
           {NAV_LINKS.map((link) => {
-            const isActive = location.pathname === link.path
+            const isActive = isRouteActive(link.path)
             if (link.panel) return <NavDropdown key={link.name} link={link} isActive={isActive} />
             return (
               <Link
@@ -296,7 +301,7 @@ export const Navbar: React.FC<NavbarProps> = () => {
           <div className={`flex items-center border-l px-2 md:hidden ${HAIRLINE}`}>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="rounded-none p-1.5 text-ink transition-all duration-200 hover:bg-line/5 focus:outline-none active:scale-95"
+              className="rounded-none p-1.5 text-ink transition-all duration-200 hover:bg-line/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand active:scale-95"
               aria-label={mobileMenuOpen ? 'Close Menu' : 'Open Menu'}
               aria-expanded={mobileMenuOpen}
             >
@@ -318,7 +323,7 @@ export const Navbar: React.FC<NavbarProps> = () => {
           >
             <div className={`flex flex-col border-b bg-canvas ${HAIRLINE}`}>
               {MOBILE_LINKS.map((link) => {
-                const isActive = location.pathname === link.path
+                const isActive = isRouteActive(link.path)
                 return (
                   <Link
                     key={link.name}

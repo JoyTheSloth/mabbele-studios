@@ -1,6 +1,6 @@
 import React from 'react'
 import { Contact } from '../components/Contact'
-import { Link, useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 
 export const ContactPage: React.FC = () => {
   const location = useLocation()

@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ee</head>eadf">
+  <meta name="description" content="Hamlet Restaurant & Tea Room. A global kitchen and a moment for tea. Explore the menus, plan your visit, and call to reserve.">
+  <title>Hamlet — Restaurant & Tea Room</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--paper:#eeeadf;--light:#f7f4ec;--ink:#202c26;--muted:#64675b;--gold:#96805a;--line:#c9c5b5;--wine:#743c38;--serif:'Cormorant Garamond',Georgia,serif;--sans:'Manrope',Arial,sans-serif;--gutter:clamp(22px,5vw,88px)}
+    *,*::before,*::after{box-sizing:border-box}
+    html{scroll-behavior:smooth;scroll-padding-top:110px}
+    body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:14px;-webkit-font-smoothing:antialiased}
+    body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:10;opacity:.035;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Cpath fill='%23000' filter='url(%23n)' opacity='.5' d='M0 0h180v180H0z'/%3E%3C/svg%3E")}
+    ::selection{background:var(--wine);color:var(--light)}
+    a{color:inherit;text-decoration:none}button{font:inherit;color:inherit}img{display:block;width:100%;height:100%;object-fit:cover}figure,p,h1,h2,h3{margin:0}h1,h2,h3{font-family:var(--serif);font-weight:400}h2{font-size:clamp(52px,6.4vw,100px);line-height:.97;letter-spacing:-.045em}h2 em,h1 em{font-weight:400}p{line-height:1.9}a,button{-webkit-tap-highlight-color:transparent}a:focus-visible,button:focus-visible{outline:2px solid var(--wine);outline-offset:6px}section[id]{scroll-margin-top:25px}
+    .skip{position:fixed;top:12px;left:12px;z-index:100;background:var(--ink);color:white;padding:12px 20px;transform:translateY(-160%)}.skip:focus{transform:none}
+    .eyebrow{font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;line-height:1.6}.muted{color:var(--muted)}.arrow{display:inline-block;font-family:Arial,sans-serif;font-size:20px;font-weight:400;transition:transform .25s}.text-link{display:inline-flex;align-items:center;justify-content:space-between;gap:35px;border-bottom:1px solid var(--gold);padding:12px 0;font-size:10px;letter-spacing:.13em;text-transform:uppercase;font-weight:600}.text-link:hover .arrow{transform:translate(3px,-3px)}.button{display:inline-flex;align-items:center;justify-content:space-between;gap:35px;min-height:52px;padding:16px 23px;border:1px solid var(--ink);font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;transition:background .2s,color .2s}.button:hover{background:var(--ink);color:var(--light)}
+    .header{margin:0 var(--gutter);min-height:110px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);gap:30px;position:relative;z-index:20}.brand{display:flex;align-items:center;gap:13px}.brand-mark{width:32px;height:43px;border:1px solid var(--gold);border-radius:50% 50% 0 0;display:grid;place-items:center;font:28px var(--serif);color:var(--gold)}.brand-name{font:38px/.85 var(--serif);letter-spacing:-.04em}.brand-name small{display:block;font:8px var(--sans);letter-spacing:.16em;text-transform:uppercase;margin-top:9px}.navigation{display:flex;align-items:center;gap:clamp(22px,3vw,48px)}.navigation>a:not(.button){font-size:10px;text-transform:uppercase;letter-spacing:.13em;padding:12px 0;position:relative}.navigation>a:not(.button)::after{content:"";position:absolute;bottom:6px;left:0;width:0;height:1px;background:var(--gold);transition:width .2s}.navigation>a:hover::after{width:100%}.navigation .button{min-height:43px;padding:12px 18px}.menu-toggle{display:none}
+    .hero{position:relative;margin:0 var(--gutter);padding-top:58px;display:grid;grid-template-columns:1.04fr 1fr;column-gap:4.5%;padding-bottom:45px}.hero-copy{padding:28px 0 70px;position:relative;z-index:2}.hero-kicker{display:flex;align-items:center;gap:17px}.hero-kicker::before{content:"";width:34px;height:1px;background:var(--gold)}h1{font-size:clamp(85px,10.1vw,158px);letter-spacing:-.06em;line-height:.82;margin:39px -100px 34px 0}h1 span{display:block}h1 em{color:var(--wine)}.hero-description{max-width:285px;font-size:13px;color:var(--muted);margin:0 0 26px 5px}.hero-copy>.text-link{margin-left:5px;min-width:190px}.hero-photo{position:relative;min-height:590px;margin-right:28px}.hero-photo::before{content:"";position:absolute;inset:12px -12px -12px 12px;border:1px solid var(--gold);z-index:-1}.hero-photo img{filter:brightness(.79) saturate(.67);object-position:48% center}.hero-photo figcaption{position:absolute;bottom:24px;left:24px;right:24px;color:#fff6e2;display:flex;align-items:center;justify-content:space-between;font-size:9px;letter-spacing:.2em;text-transform:uppercase}.vertical-label{position:absolute;right:-38px;top:0;writing-mode:vertical-rl;font-size:9px;letter-spacing:.22em;text-transform:uppercase;display:flex;gap:18px;align-items:center}.vertical-label::after{content:"";height:90px;width:1px;background:var(--gold)}.seal{position:absolute;left:-48px;bottom:60px;width:94px;height:94px;border-radius:50%;background:var(--wine);color:#f4e9d4;display:flex;align-items:center;justify-content:center;flex-direction:column;transform:rotate(-12deg);border:1px solid var(--wine);box-shadow:inset 0 0 0 5px var(--wine),inset 0 0 0 6px #b98b73;gap:3px}.seal span{font:italic 37px/.9 var(--serif)}.seal small{font-size:7px;letter-spacing:.13em;text-transform:uppercase}.hero-bottom{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;gap:20px;margin-top:38px;padding-top:20px;border-top:1px solid var(--line)}.live-status{display:flex;gap:10px;align-items:center;font-size:10px;letter-spacing:.04em}.status-dot{flex-shrink:0;width:6px;height:6px;border-radius:50%;background:var(--gold)}.live-status[data-open="true"] .status-dot{background:#4b714d}.live-status[data-open="false"] .status-dot{background:var(--wine)}.hero-bottom>.eyebrow{font-size:9px}.scroll-note{font-size:9px;letter-spacing:.15em;text-transform:uppercase;display:flex;gap:20px;align-items:center}
+    .house{padding:110px var(--gutter) 120px;display:grid;grid-template-columns:.8fr 1fr;gap:12%;border-top:1px solid var(--line)}.house-photo{position:relative;align-self:start;margin:38px 0 0 25px}.house-photo .image{height:clamp(350px,37vw,550px);overflow:hidden}.house-photo img{filter:saturate(.6);object-position:50% 58%}.house-photo::before{content:"";position:absolute;inset:-18px 18px 18px -18px;border:1px solid var(--gold);z-index:-1}.image-caption{display:flex;justify-content:space-between;gap:15px;margin-top:18px;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}.house-copy .eyebrow{margin-bottom:28px}.house-copy h2{max-width:600px}.house-copy>p{max-width:370px;margin-top:30px;color:var(--muted);font-size:13px}.house-signature{margin-top:35px;display:flex;align-items:center;gap:18px}.house-signature::before{content:"";width:55px;height:1px;background:var(--gold)}.house-signature span{font:italic 26px var(--serif)}
+    .menus{padding:95px var(--gutter) 105px;background:var(--light);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.section-heading{display:flex;justify-content:space-between;gap:40px;align-items:end;margin-bottom:50px}.section-heading .eyebrow{margin-bottom:22px}.section-heading>p{max-width:285px;font-size:12px;color:var(--muted);padding-bottom:5px}.menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:30px}.menu-card{position:relative;padding:39px 40px 28px;min-height:365px;display:flex;flex-direction:column;transition:background .3s;overflow:hidden}.menu-card::before{content:"";position:absolute;inset:9px;border:1px solid #a9977266;pointer-events:none}.menu-card::after{content:"";position:absolute;right:28px;top:24px;width:85px;height:160px;border:1px solid #a9977255;border-radius:100% 100% 0 0;transform:rotate(27deg);pointer-events:none}.menu-kitchen{background:var(--ink);color:var(--paper)}.menu-tea{background:#dfd8c5;color:var(--ink)}.menu-card:hover{background:#2f4035}.menu-tea:hover{background:#d4cbb4}.menu-card-top{display:flex;justify-content:space-between;align-items:center;position:relative;z-index:1}.menu-card-top>span:first-child{font-size:9px;letter-spacing:.18em;text-transform:uppercase}.menu-card-top>span:last-child{font:italic 20px var(--serif);opacity:.65}.menu-card h3{font-size:clamp(48px,5.1vw,76px);letter-spacing:-.035em;margin-top:45px;line-height:1}.menu-card p{font-size:12px;opacity:.72;margin-top:12px;max-width:290px}.menu-card-bottom{margin-top:auto;padding-top:32px;display:flex;justify-content:space-between;align-items:center;font-size:9px;letter-spacing:.15em;text-transform:uppercase}.menu-card-bottom .arrow{font-size:26px}.menu-card:hover .arrow{transform:translate(4px,-4px)}.menu-note{display:flex;justify-content:space-between;gap:20px;margin-top:24px;font-size:9px;color:var(--muted);letter-spacing:.07em}
+    .ritual{padding:115px var(--gutter);display:grid;grid-template-columns:1fr 1.1fr;gap:10%;align-items:center}.ritual-copy{padding:0 0 0 8%}.ritual-copy .eyebrow{margin-bottom:26px}.ritual-copy p{max-width:315px;color:var(--muted);font-size:13px;margin-top:28px}.ritual-copy .text-link{margin-top:26px;min-width:190px}.ritual-art{position:relative;margin:0 24px 30px 0}.ritual-art .image{height:490px;overflow:hidden;border-radius:48% 48% 0 0}.ritual-art img{filter:saturate(.6) brightness(.89)}.ritual-art::before{content:"";position:absolute;inset:-14px 14px 14px -14px;border:1px solid var(--gold);border-radius:48% 48% 0 0;z-index:-1}.ritual-label{position:absolute;bottom:-30px;left:0;right:0;display:flex;justify-content:space-between;font-size:9px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted)}.ritual-number{position:absolute;left:-48px;bottom:30px;background:var(--paper);width:95px;height:95px;border:1px solid var(--gold);display:grid;place-items:center;font:italic 48px var(--serif);border-radius:50%}
+    .visit{background:var(--ink);color:var(--paper);padding:85px var(--gutter) 0;position:relative;overflow:hidden}.visit::before{content:"";position:absolute;width:600px;height:600px;right:-260px;top:-220px;border:1px solid #a9977226;border-radius:50%;pointer-events:none}.visit-top{display:flex;justify-content:space-between;align-items:center;gap:25px;border-bottom:1px solid #eeeadf30;padding-bottom:25px}.visit-top .eyebrow{color:#c7b590}.visit-top .live-status{color:#ddd8c8}.visit-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:12%;padding:65px 0 70px}.visit h2{font-size:clamp(65px,7vw,110px)}.visit-copy>p{font-size:12px;color:#c1c5b8;max-width:320px;margin-top:26px}.reserve-phone{display:inline-flex;align-items:center;gap:28px;font:clamp(28px,3.3vw,47px) var(--serif);border-bottom:1px solid var(--gold);padding-bottom:10px;margin-top:30px}.reserve-phone .arrow{font-size:25px}.visit-copy>small{display:block;color:#b6bcaf;font-size:9px;letter-spacing:.1em;margin-top:15px}.hours-heading{display:flex;justify-content:space-between;gap:20px;align-items:center;margin-bottom:18px}.hours-heading .eyebrow{font-size:9px}.hours-heading>span{color:#bdbaa6;font-size:9px}table{width:100%;border-collapse:collapse;font-size:11px}caption{text-align:left;font-family:var(--serif);font-size:30px;margin-bottom:22px}th,td{padding:12px 0;border-bottom:1px solid #eeeadf24}th{text-align:left;font-weight:400}td{text-align:right;font-variant-numeric:tabular-nums;color:#d3d3c5}tr[data-day="Wed"] td{color:#c6a78c}tr.is-today th{color:#e4c99c}tr.is-today th::after{content:"Today";font-family:var(--sans);font-size:8px;letter-spacing:.1em;text-transform:uppercase;margin-left:12px;opacity:.8}.hours-foot{font-size:10px;color:#b6bcaf;margin-top:15px}.visit-links{display:grid;grid-template-columns:1fr 1fr 1fr;border-top:1px solid #eeeadf30}.visit-links a{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:25px 0;font-size:10px;letter-spacing:.07em}.visit-links a+a{border-left:1px solid #eeeadf30;padding-left:30px;margin-left:30px}.visit a:focus-visible{outline-color:#e4c99c}.visit-links a:hover .arrow{transform:translate(3px,-3px)}
+    .footer{padding:55px var(--gutter) 25px}.footer-main{display:flex;align-items:end;justify-content:space-between;gap:30px;padding-bottom:36px}.footer-wordmark{font:clamp(70px,11vw,160px)/.7 var(--serif);letter-spacing:-.065em}.footer-main>p{font-size:10px;text-transform:uppercase;letter-spacing:.15em;line-height:1.9;text-align:right}.footer-bottom{border-top:1px solid var(--line);padding-top:20px;display:flex;align-items:start;justify-content:space-between;gap:30px;font-size:9px;color:var(--muted);line-height:1.8}.footer-bottom p{max-width:550px}.back-top{white-space:nowrap;text-transform:uppercase;letter-spacing:.1em}
+    .reveal-ready [data-reveal]{opacity:0;transform:translateY(22px);transition:opacity .8s ease,transform .8s ease}.reveal-ready [data-reveal].is-visible{opacity:1;transform:none}
+    @media(min-width:1600px){body{max-width:1800px;margin:auto}.hero-photo{min-height:720px}}
+    @media(max-width:1050px){.navigation{gap:20px}.navigation .button{display:none}.hero{column-gap:3%;padding-top:36px}.hero-photo{min-height:540px}.hero-copy{padding-top:40px}h1{font-size:clamp(83px,11.8vw,125px)}.hero-bottom>.eyebrow{display:none}.house{gap:9%;padding-top:85px;padding-bottom:85px}.house-copy h2{font-size:67px}.ritual{gap:9%}.ritual-art .image{height:420px}.visit-grid{gap:8%}.menu-card{padding:32px;min-height:350px}}
+    @media(max-width:760px){html{scroll-padding-top:30px}.header{min-height:90px;flex-wrap:wrap;gap:0}.brand-name{font-size:34px}.brand-mark{width:28px;height:37px}.menu-toggle:not([hidden]){display:inline-flex;align-items:center;gap:12px;border:1px solid var(--line);background:none;padding:12px 14px;font-size:9px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer}.toggle-icon{width:16px;height:10px;position:relative;border-top:1px solid;border-bottom:1px solid}.menu-toggle[aria-expanded="true"] .toggle-icon{border:0}.menu-toggle[aria-expanded="true"] .toggle-icon::before,.menu-toggle[aria-expanded="true"] .toggle-icon::after{content:"";position:absolute;top:5px;left:0;width:16px;height:1px;background:currentColor;transform:rotate(45deg)}.menu-toggle[aria-expanded="true"] .toggle-icon::after{transform:rotate(-45deg)}.navigation{flex-basis:100%;display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;padding:15px 0 20px}.navigation .button{display:none}.menu-ready .navigation{display:none}.menu-ready .navigation.is-open{display:flex}.menu-ready .navigation>a:not(.button){flex-basis:45%;font-family:var(--serif);font-size:30px;letter-spacing:-.02em;text-transform:none;border-bottom:1px solid var(--line);padding:12px 0}.menu-ready .navigation .button{display:inline-flex;margin-top:8px}.hero{padding-top:25px;grid-template-columns:1fr .85fr;gap:0 20px;padding-bottom:30px}.hero-copy{padding-top:20px;padding-bottom:30px}.hero-kicker{font-size:8px;letter-spacing:.12em;gap:9px}.hero-kicker::before{width:18px}h1{font-size:clamp(69px,13.4vw,102px);margin-top:30px;margin-bottom:25px;margin-right:-80px}.hero-photo{min-height:420px;margin-right:10px;align-self:stretch;margin-top:15px}.hero-photo::before{inset:8px -8px -8px 8px}.hero-photo figcaption{left:15px;right:15px;bottom:15px;font-size:7px;letter-spacing:.12em}.hero-photo figcaption span:last-child{display:none}.vertical-label{right:-24px;font-size:7px}.hero-description{font-size:11px;max-width:180px;margin-left:0}.hero-copy>.text-link{margin-left:0;min-width:0;font-size:9px;gap:20px}.seal{width:70px;height:70px;left:-30px;bottom:35px}.seal span{font-size:29px}.seal small{font-size:5px}.hero-bottom{margin-top:25px;align-items:start}.live-status{font-size:9px;line-height:1.7}.scroll-note{font-size:8px;gap:12px;white-space:nowrap}.house{padding-top:65px;padding-bottom:70px;grid-template-columns:.8fr 1fr;gap:8%}.house-photo{margin:35px 0 0 12px}.house-photo .image{height:345px}.house-photo::before{inset:-10px 10px 10px -10px}.house-copy h2{font-size:clamp(42px,7vw,58px)}.house-copy .eyebrow{font-size:8px;margin-bottom:20px}.house-copy>p{font-size:11px;margin-top:20px}.house-signature{gap:12px;margin-top:22px}.house-signature::before{width:25px}.house-signature span{font-size:21px}.image-caption{font-size:7px;line-height:1.6}.image-caption span:last-child{display:none}.menus{padding-top:65px;padding-bottom:65px}.section-heading{align-items:start;gap:25px;margin-bottom:30px}.section-heading h2{font-size:58px}.section-heading>p{max-width:200px;font-size:11px}.menu-grid{gap:16px}.menu-card{padding:27px;min-height:330px}.menu-card h3{font-size:49px}.menu-card p{font-size:11px}.menu-card::after{width:60px;height:115px;right:20px}.menu-card-top>span:first-child{font-size:8px}.menu-card-top>span:last-child{font-size:17px}.menu-card-bottom{font-size:8px}.menu-note{font-size:8px}.ritual{padding-top:80px;padding-bottom:85px;gap:10%}.ritual-copy{padding:0}.ritual h2{font-size:58px}.ritual-copy p{font-size:11px}.ritual-art{margin-right:5px}.ritual-art .image{height:350px}.ritual-number{width:65px;height:65px;left:-28px;font-size:35px}.ritual-label{font-size:7px;gap:15px}.visit{padding-top:55px}.visit-grid{padding:45px 0;gap:8%}.visit h2{font-size:68px}.visit-copy>p{font-size:11px}.reserve-phone{font-size:29px;gap:15px}.visit-links a{font-size:9px;letter-spacing:0}.visit-links a+a{margin-left:15px;padding-left:15px}.footer-bottom p{max-width:390px}}
+    @media(max-width:520px){.hero{grid-template-columns:1fr;padding-top:16px}.hero-copy{padding-top:17px;padding-bottom:35px}h1{font-size:clamp(88px,21vw,118px);margin:30px 0 25px;line-height:.8}h1 span:last-child{padding-left:12%}.hero-description{font-size:12px;max-width:270px;margin-left:13%}.hero-copy>.text-link{margin-left:13%;margin-top:0;min-width:185px}.hero-kicker{font-size:8px}.hero-photo{height:360px;min-height:0;margin:0 15px 0 0}.hero-photo img{object-position:center 60%}.hero-photo figcaption span:last-child{display:inline}.vertical-label{right:-28px}.seal{left:auto;right:17px;bottom:auto;top:-35px;width:77px;height:77px}.hero-bottom{margin-top:32px;gap:12px}.hero-bottom .live-status{max-width:240px}.scroll-note{font-size:7px;gap:8px}.house{grid-template-columns:1fr;padding-top:55px;padding-bottom:60px;gap:40px}.house-copy{grid-row:1}.house-copy h2{font-size:65px}.house-copy>p{max-width:330px;font-size:12px}.house-copy .eyebrow{font-size:9px}.house-photo{margin:0 0 0 12px;max-width:90%}.house-photo .image{height:340px}.image-caption{font-size:8px}.image-caption span:last-child{display:block}.section-heading{display:block}.section-heading h2{font-size:65px}.section-heading>p{max-width:280px;margin-top:22px;font-size:12px}.menu-grid{grid-template-columns:1fr;gap:22px}.menu-card{min-height:330px;padding:32px}.menu-card h3{font-size:65px;margin-top:35px}.menu-card p{font-size:12px}.menu-card-top>span:first-child{font-size:9px}.menu-card-top>span:last-child{font-size:20px}.menu-card-bottom{font-size:9px}.menu-note{display:block;line-height:1.9}.menu-note span{display:block}.ritual{grid-template-columns:1fr;gap:48px;padding-top:65px;padding-bottom:75px}.ritual-copy{padding-left:0}.ritual h2{font-size:70px}.ritual-copy p{font-size:12px}.ritual-art{width:82%;margin:0 0 25px auto}.ritual-art .image{height:360px}.ritual-label{font-size:8px}.ritual-number{width:80px;height:80px;left:-36px;font-size:42px}.visit-top{display:block;padding-bottom:20px}.visit-top .live-status{margin-top:15px}.visit-grid{grid-template-columns:1fr;gap:50px}.visit h2{font-size:80px}.visit-copy>p{font-size:12px}.reserve-phone{font-size:37px}.visit-copy>small{font-size:9px}.visit-links{grid-template-columns:1fr}.visit-links a{font-size:10px;padding:20px 0}.visit-links a+a{margin:0;padding:20px 0;border-left:0;border-top:1px solid #eeeadf30}.footer{padding-top:45px}.footer-main{align-items:start;gap:25px}.footer-wordmark{font-size:88px}.footer-main>p{font-size:8px}.footer-bottom{flex-wrap:wrap;gap:18px;font-size:8px}.footer-bottom p{max-width:none}.footer-bottom>span{order:3;flex-basis:100%}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important;animation:none!important}.reveal-ready [data-reveal]{opacity:1;transform:none}}
+  </style>
+</head>
+<body id="top">
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="header">
+    <a class="brand" href="#top" aria-label="Hamlet home"><span class="brand-mark" aria-hidden="true">h.</span><span class="brand-name">hamlet<small>Restaurant &amp; Tea Room</small></span></a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="navigation" hidden><span class="toggle-label">Menu</span><span class="toggle-icon" aria-hidden="true"></span></button>
+    <nav class="navigation" id="navigation" aria-label="Main navigation">
+      <a href="#house">The house</a><a href="#menus">The menus</a><a href="#hours">Our hours</a><a href="#visit">Find us</a><a class="button" href="tel:+919362882441">Reserve a table <span class="arrow" aria-hidden="true">↗</span></a>
+    </nav>
+  </header>
+  <main id="main">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow hero-kicker">A global kitchen. A moment for tea.</p>
+        <h1 id="hero-title"><span>A little</span><span>out of</span><span>the <em>ordinary.</em></span></h1>
+        <p class="hero-description">For long lunches, slow afternoons, and the lovely possibility of another cup.</p>
+        <a class="text-link" href="#menus">Discover the menus <span class="arrow" aria-hidden="true">↗</span></a>
+      </div>
+      <figure class="hero-photo">
+        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&amp;fit=crop&amp;w=1400&amp;q=85" alt="Conceptual restaurant interior with warm wood, generous windows and softly lit tables" width="1000" height="1300" fetchpriority="high">
+        <div class="vertical-label" aria-hidden="true">The art of taking your time</div>
+        <div class="seal" aria-hidden="true"><small>Good company</small><span>h.</span><small>Slow moments</small></div>
+        <figcaption><span>An invitation to linger</span><span>Hamlet / 01</span></figcaption>
+      </figure>
+      <div class="hero-bottom">
+        <div class="live-status" data-status role="status"><span class="status-dot" aria-hidden="true"></span><span data-status-text>1:00–8:30 PM IST · Closed Wednesdays</span></div>
+        <span class="eyebrow">Restaurant &amp; Tea Room</span>
+        <a class="scroll-note" href="#house">A little further <span class="arrow" aria-hidden="true">↓</span></a>
+      </div>
+    </section>
+
+    <section class="house" id="house" aria-labelledby="house-title">
+      <figure class="house-photo" data-reveal>
+        <div class="image"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&amp;fit=crop&amp;w=1000&amp;q=85" alt="Conceptual dining scene with a carefully laid table and warm candlelight" width="800" height="1000" loading="lazy"></div>
+        <figcaption class="image-caption"><span>At the table, together.</span><span>A study in atmosphere</span></figcaption>
+      </figure>
+      <div class="house-copy" data-reveal>
+        <p class="eyebrow">01 / The spirit of the house</p>
+        <h2 id="house-title">Some places<br>are made<br>for <em>staying.</em></h2>
+        <p>A table, a conversation, something good to eat. Hamlet brings a global kitchen and a tea room into the same unhurried afternoon.</p>
+        <p>Come for lunch. Make time for tea. Leave a little room in the day for no particular plan.</p>
+        <div class="house-signature"><span>With warmth, Hamlet</span></div>
+      </div>
+    </section>
+
+    <section class="menus" id="menus" aria-labelledby="menus-title">
+      <div class="section-heading" data-reveal>
+        <div><p class="eyebrow">02 / Something to look forward to</p><h2 id="menus-title">A matter of <em>taste.</em></h2></div>
+        <p>Follow your appetite. Or let the afternoon begin with a cup. Explore our menus before you settle in.</p>
+      </div>
+      <div class="menu-grid">
+        <a class="menu-card menu-kitchen" data-reveal href="https://anyflip.com/bookcase/opiuu" target="_blank" rel="noopener noreferrer" aria-label="Explore the kitchen menu in the digital menu collection (opens in a new tab)">
+          <div class="menu-card-top"><span>Hamlet / Restaurant</span><span>No. 01</span></div>
+          <h3>The global<br><em>kitchen.</em></h3><p>For the table. For the conversation.<br>For whatever you’re in the mood for.</p>
+          <span class="menu-card-bottom">Explore the kitchen menu <span class="arrow" aria-hidden="true">↗</span></span>
+        </a>
+        <a class="menu-card menu-tea" data-reveal href="https://anyflip.com/bookcase/opiuu" target="_blank" rel="noopener noreferrer" aria-label="Explore the tea room menu in the digital menu collection (opens in a new tab)">
+          <div class="menu-card-top"><span>Hamlet / Tea Room</span><span>No. 02</span></div>
+          <h3>The slower<br><em>ritual.</em></h3><p>A pause in the day.<br>A reason to stay a little longer.</p>
+          <span class="menu-card-bottom">Explore the tea room menu <span class="arrow" aria-hidden="true">↗</span></span>
+        </a>
+      </div>
+      <p class="menu-note"><span>Both menus open our digital menu collection in a new tab.</span><span>Take your time. There’s no hurry.</span></p>
+    </section>
+
+    <section class="ritual" aria-labelledby="ritual-title">
+      <div class="ritual-copy" data-reveal>
+        <p class="eyebrow">03 / The afternoon, reimagined</p>
+        <h2 id="ritual-title">Less rush.<br>More <em>ritual.</em></h2>
+        <p>Let the conversation wander. Let the cup grow warm in your hands. There is a quiet kind of pleasure in doing just one thing at a time.</p>
+        <p>Our invitation is simple: make a little space for tea.</p>
+        <a class="text-link" href="https://anyflip.com/bookcase/opiuu" target="_blank" rel="noopener noreferrer" aria-label="Browse the tea menu (opens in a new tab)">A moment for tea <span class="arrow" aria-hidden="true">↗</span></a>
+      </div>
+      <figure class="ritual-art" data-reveal>
+        <div class="image"><img src="https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&amp;fit=crop&amp;w=1000&amp;q=85" alt="Conceptual still life of tea in a ceramic cup, seen from above" width="800" height="1000" loading="lazy"></div>
+        <span class="ritual-number" aria-hidden="true">茶</span>
+        <figcaption class="ritual-label"><span>The pleasure of a pause</span><span>Tea / Still life</span></figcaption>
+      </figure>
+    </section>
+
+    <section class="visit" id="visit" aria-labelledby="visit-title">
+      <div class="visit-top"><p class="eyebrow">04 / There’s a place for you here</p><div class="live-status" data-status role="status"><span class="status-dot" aria-hidden="true"></span><span data-status-text>1:00–8:30 PM IST · Closed Wednesdays</span></div></div>
+      <div class="visit-grid">
+        <div class="visit-copy" data-reveal>
+          <h2 id="visit-title">Shall we<br>save you<br><em>a seat?</em></h2>
+          <p>Good afternoons begin with a simple plan. Call us to ask about a table and arrange your visit.</p>
+          <a class="reserve-phone" href="tel:+919362882441" aria-label="Call Hamlet at +91 93628 82441">+91 93628 82441 <span class="arrow" aria-hidden="true">↗</span></a>
+          <small>For reservations &amp; enquiries · Call during opening hours</small>
+        </div>
+        <div class="hours" id="hours" data-reveal>
+          <div class="hours-heading"><h3 class="eyebrow">The weekly rhythm</h3><span>All times IST</span></div>
+          <table>
+            <caption>Come by, stay a while.</caption>
+            <tbody>
+              <tr data-day="Mon"><th scope="row">Monday</th><td>1:00 PM — 8:30 PM</td></tr>
+              <tr data-day="Tue"><th scope="row">Tuesday</th><td>1:00 PM — 8:30 PM</td></tr>
+              <tr data-day="Wed"><th scope="row">Wednesday</th><td>Closed for the day</td></tr>
+              <tr data-day="Thu"><th scope="row">Thursday</th><td>1:00 PM — 8:30 PM</td></tr>
+              <tr data-day="Fri"><th scope="row">Friday</th><td>1:00 PM — 8:30 PM</td></tr>
+              <tr data-day="Sat"><th scope="row">Saturday</th><td>1:00 PM — 8:30 PM</td></tr>
+              <tr data-day="Sun"><th scope="row">Sunday</th><td>1:00 PM — 8:30 PM</td></tr>
+            </tbody>
+          </table>
+          <p class="hours-foot">A little pause of our own, every Wednesday.</p>
+        </div>
+      </div>
+      <div class="visit-links">
+        <a href="https://www.google.com/maps/search/?api=1&amp;query=Hamlet+Restaurant+%26+Tea+Room" target="_blank" rel="noopener noreferrer" aria-label="Find Hamlet on Google Maps (opens in a new tab)">Find us on the map <span class="arrow" aria-hidden="true">↗</span></a>
+        <a href="https://instagram.com/hamletbyharvest" target="_blank" rel="noopener noreferrer" aria-label="Visit @hamletbyharvest on Instagram (opens in a new tab)">@hamletbyharvest <span class="arrow" aria-hidden="true">↗</span></a>
+        <a href="#menus">One more look at the menus <span class="arrow" aria-hidden="true">↑</span></a>
+      </div>
+    </section>
+  </main>
+  <footer class="footer">
+    <div class="footer-main"><a class="footer-wordmark" href="#top" aria-label="Hamlet, back to top">hamlet.</a><p>A global kitchen.<br>A tea room.<br>A little out of the ordinary.</p></div>
+    <div class="footer-bottom"><span>© <span id="year">2026</span> Hamlet Restaurant &amp; Tea Room</span><p>Conceptual photography via Unsplash; images express the mood of this design and do not depict Hamlet’s actual space, food, or tea service.</p><a class="back-top" href="#top">Back to the beginning ↑</a></div>
+  </footer>
+  <script>
+    (() => {
+      'use strict';
+      const toggle = document.querySelector('.menu-toggle');
+      const navigation = document.getElementById('navigation');
+      const mobile = window.matchMedia('(max-width: 760px)');
+      function setMenu(open, returnFocus = false) {
+        toggle.setAttribute('aria-expanded', String(open));
+        toggle.querySelector('.toggle-label').textContent = open ? 'Close' : 'Menu';
+        navigation.classList.toggle('is-open', open);
+        if (returnFocus) toggle.focus();
+      }
+      toggle.addEventListener('click', () => setMenu(toggle.getAttribute('aria-expanded') !== 'true'));
+      navigation.addEventListener('click', event => {
+        if (event.target.closest('a')) setMenu(false);
+      });
+      document.addEventListener('keydown', event => {
+        if (event.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') setMenu(false, true);
+      });
+      document.addEventListener('click', event => {
+        if (!event.target.closest('.header') && toggle.getAttribute('aria-expanded') === 'true') setMenu(false);
+      });
+      document.querySelector('.header').addEventListener('focusout', event => {
+        if (!event.currentTarget.contains(event.relatedTarget)) setMenu(false);
+      });
+      mobile.addEventListener('change', () => setMenu(false));
+      toggle.hidden = false;
+      document.documentElement.classList.add('menu-ready');
+
+      const clock = new Intl.DateTimeFormat('en-GB', {
+        timeZone: 'Asia/Kolkata', weekday: 'short', hour: '2-digit', minute: '2-digit', hourCycle: 'h23'
+      });
+      function getOpeningState(date) {
+        const parts = Object.fromEntries(clock.formatToParts(date).filter(part => part.type !== 'literal').map(part => [part.type, part.value]));
+        const minutes = Number(parts.hour) * 60 + Number(parts.minute);
+        const day = parts.weekday;
+        const open = day !== 'Wed' && minutes >= 780 && minutes < 1230;
+        let text;
+        if (open) text = 'Open now · Until 8:30 PM IST';
+        else if (day === 'Wed') text = 'Closed today · Opens Thursday at 1 PM IST';
+        else if (minutes < 780) text = 'A little later · Opens today at 1 PM IST';
+        else if (day === 'Tue') text = 'Closed now · Opens Thursday at 1 PM IST';
+        else text = 'Closed now · Opens tomorrow at 1 PM IST';
+        return { day, open, text };
+      }
+      function updateStatus() {
+        const state = getOpeningState(new Date());
+        document.querySelectorAll('[data-status]').forEach(element => {
+          element.dataset.open = String(state.open);
+          const text = element.querySelector('[data-status-text]');
+          if (text.textContent !== state.text) text.textContent = state.text;
+        });
+        document.querySelectorAll('[data-day]').forEach(row => row.classList.toggle('is-today', row.dataset.day === state.day));
+      }
+      updateStatus();
+      window.setInterval(updateStatus, 30000);
+      document.addEventListener('visibilitychange', () => { if (!document.hidden) updateStatus(); });
+      document.getElementById('year').textContent = new Date().getFullYear();
+
+      const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+      if ('IntersectionObserver' in window && !motion.matches) {
+        const observer = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.08 });
+        document.querySelectorAll('[data-reveal]').forEach(element => observer.observe(element));
+        document.documentElement.classList.add('reveal-ready');
+        motion.addEventListener('change', event => {
+          if (event.matches) {
+            document.documentElement.classList.remove('reveal-ready');
+            observer.disconnect();
+          }
+        });
+      }
+    })();
+  </script>
+</body>
+</html>

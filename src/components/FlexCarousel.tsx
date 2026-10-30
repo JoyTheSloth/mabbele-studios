@@ -1,49 +1,40 @@
-// @ts-nocheck
 import React, { useEffect, useRef, useState } from 'react';
 import { Renderer, Program, Mesh, Triangle, Plane, Texture, RenderTarget } from 'ogl';
 
 import './FlexCarousel.css';
 
-const photo = id => `https://images.unsplash.com/${id}?w=1200&q=80&auto=format&fit=max`;
+export interface CarouselItem {
+  src: string;
+  alt?: string;
+  title?: string;
+  subtitle?: string;
+}
 
-const DEFAULT_ITEMS = [
+const DEFAULT_ITEMS: CarouselItem[] = [
   {
-    src: photo('photo-1737071371043-761e02b1ef95'),
-    alt: 'An iridescent chrome sculpture of a head',
-    title: 'Iridescence',
-    subtitle: 'AI Research'
+    src: '/vidyasetu-preview.webp',
+    alt: 'VidyaSetu School ERP and institutional website preview',
+    title: 'VidyaSetu ERP',
+    subtitle: 'School Management Platform'
   },
   {
-    src: photo('photo-1693645325828-62cd35c8da8f'),
-    alt: 'A person in dark clothes standing in front of a white backdrop',
-    title: 'White Room',
-    subtitle: 'Interface Design'
-  },
-  { src: photo('photo-1739056238917-d89cd05c48d5'), alt: 'A twisted chrome form on black', title: 'Liquid Metal', subtitle: 'Generative Systems' },
-  { src: photo('photo-1747191092806-c7da11881986'), alt: 'A clay bust shown in profile', title: 'Clay Study', subtitle: 'Studio 04' },
-  { src: photo('photo-1605034313761-73ea4a0cfbf3'), alt: 'Black and white low top sneakers', title: 'Low Tops', subtitle: 'Product Engineering' },
-  { src: photo('photo-1495462911434-be47104d70fa'), alt: 'A woman in a wide black hat', title: 'Brim', subtitle: 'Aesthetic Direction' },
-  {
-    src: photo('photo-1786835568925-20cd20007ed0'),
-    alt: 'Three swirling shapes in white, gold and silver on grey',
-    title: 'Three Forms',
-    subtitle: 'Dynamic Models'
-  },
-  { src: photo('photo-1770249196550-ff6c641165cb'), alt: 'A chrome humanoid sculpture', title: 'Automaton', subtitle: 'Autonomous Agents' },
-  {
-    src: photo('photo-1787181875088-087d612262a7'),
-    alt: 'A black textured sculpture with an opening at its center',
-    title: 'Obsidian',
-    subtitle: 'Core Architecture'
+    src: '/moksa-preview.webp',
+    alt: 'MOKSA Coffee House editorial sample site preview',
+    title: 'MOKSA Coffee House',
+    subtitle: 'Specialty Cafe Website'
   },
   {
-    src: photo('photo-1770062422885-2dfcbe8fb65b'),
-    alt: 'A woman in a white shirt crouching on a dark set',
-    title: 'Poise',
-    subtitle: 'Human Interaction'
+    src: '/lazeez-preview.webp',
+    alt: 'Lazeez-a-Gulmarg restaurant digital menu preview',
+    title: 'Lazeez-a-Gulmarg',
+    subtitle: 'Fine-Dining Menu Card'
   },
-  { src: photo('photo-1726910133626-9b573eca70ff'), alt: 'Black curved shapes stacked like a fan', title: 'Fins', subtitle: 'Parametric Layouts' },
-  { src: photo('photo-1604854574958-59047362c165'), alt: 'A white plaster bust on a black table', title: 'Plaster', subtitle: 'Sculptural Systems' }
+  {
+    src: '/hamlet-preview.webp',
+    alt: 'Hamlet Restaurant & Tea Room bespoke vector website preview',
+    title: 'Hamlet Tea Room',
+    subtitle: 'Bespoke Hospitality Site'
+  }
 ];
 
 const BEND_PRESETS = {
@@ -97,16 +88,16 @@ const BEND_PRESETS = {
   }
 };
 
-const FIT_ASPECT = { portrait: 0.75, square: 1, landscape: 4 / 3 };
+const FIT_ASPECT: Record<string, number> = { portrait: 0.75, square: 1, landscape: 4 / 3 };
 const TAPS = 12;
 const PIXEL_BUDGET = 4.5e6;
-const INTRO_DURATION = { rise: 2.1, bloom: 1.6, spin: 2.2, deal: 1.5, fade: 0.35 };
+const INTRO_DURATION: Record<string, number> = { rise: 2.1, bloom: 1.6, spin: 2.2, deal: 1.5, fade: 0.35 };
 
-const wrap = (value, size) => ((((value + size / 2) % size) + size) % size) - size / 2;
-const clamp01 = value => Math.min(Math.max(value, 0), 1);
-const easeOut = value => 1 - Math.pow(1 - clamp01(value), 3);
-const easeOutQuint = value => 1 - Math.pow(1 - clamp01(value), 5);
-const easeInOut = value => {
+const wrap = (value: number, size: number) => ((((value + size / 2) % size) + size) % size) - size / 2;
+const clamp01 = (value: number) => Math.min(Math.max(value, 0), 1);
+const easeOut = (value: number) => 1 - Math.pow(1 - clamp01(value), 3);
+const easeOutQuint = (value: number) => 1 - Math.pow(1 - clamp01(value), 5);
+const easeInOut = (value: number) => {
   const t = clamp01(value);
   return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 };
@@ -243,7 +234,7 @@ void main() {
 }
 `;
 
-const Digits = ({ value }) => (
+const Digits = ({ value }: { value: number }) => (
   <span className="flex-carousel__digits">
     {String(value)
       .padStart(2, '0')
@@ -319,17 +310,18 @@ export const FlexCarousel: React.FC<FlexCarouselProps> = ({
   className = '',
   style
 }) => {
-  const containerRef = useRef(null);
-  const settingsRef = useRef(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const settingsRef = useRef<any>(null);
   const itemsRef = useRef(items);
-  const engineRef = useRef(null);
+  const engineRef = useRef<{ wake: () => void; setItems: (next: CarouselItem[]) => void } | null>(null);
   const callbacksRef = useRef({ onChange, onSelect });
   const [active, setActive] = useState(0);
   const [revealed, setRevealed] = useState(false);
   const [focusOpen, setFocusOpen] = useState(false);
 
   const base = BEND_PRESETS[preset] || BEND_PRESETS.liquid;
-  const pick = (value, key) => (value === undefined || value === null ? base[key] : value);
+  const pick = <K extends keyof typeof base>(value: any, key: K) =>
+    value === undefined || value === null ? base[key] : value;
 
   const list = items && items.length ? items : DEFAULT_ITEMS;
   const itemsKey = list.map(item => item.src).join('|');
@@ -468,7 +460,7 @@ export const FlexCarousel: React.FC<FlexCarouselProps> = ({
     const reducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
     const anisotropy = renderer.getExtension('EXT_texture_filter_anisotropic') ? 8 : 0;
 
-    let slots = [];
+    let slots: any[] = [];
     let width = 1;
     let height = 1;
     let pos = 0;
@@ -487,14 +479,26 @@ export const FlexCarousel: React.FC<FlexCarouselProps> = ({
     let hasFocus = false;
     let deform = 0;
     let deformVel = 0;
-    let layout = null;
+    let layout: any = null;
     let resnap = false;
     let hover = '';
     let lift = 1;
     let energy = 0;
     let lastPos = 0;
     const lens = { x: 0, y: 0, vx: 0, vy: 0, ready: false };
-    const pointer = {
+    const pointer: {
+      x: number;
+      y: number;
+      over: boolean;
+      down: boolean;
+      id: number;
+      startX: number;
+      startY: number;
+      startPos: number;
+      dragging: boolean;
+      touch: boolean;
+      samples: Array<{ x: number; t: number }>;
+    } = {
       x: 0,
       y: 0,
       over: false,
@@ -509,9 +513,9 @@ export const FlexCarousel: React.FC<FlexCarouselProps> = ({
     };
     const introState = { kind: 'none', t: 0, running: false, done: false, readyAt: 0 };
     const focus = { index: -1, pending: -1, t: 0, v: 0, target: 0 };
-    let instances = [];
+    let instances: Array<{ index: number; x0: number; x1: number; y0: number; y1: number }> = [];
 
-    const loadSlot = (item, index) => {
+    const loadSlot = (item: CarouselItem, index: number) => {
       const texture = new Texture(gl, {
         generateMipmaps: true,
         minFilter: gl.LINEAR_MIPMAP_LINEAR,
@@ -577,7 +581,7 @@ export const FlexCarousel: React.FC<FlexCarouselProps> = ({
       return slot;
     };
 
-    const setItems = next => {
+    const setItems = (next: CarouselItem[]) => {
       slots.forEach(slot => slot.dispose());
       slots = next.map(loadSlot);
       activeIndex = -1;
@@ -593,11 +597,11 @@ export const FlexCarousel: React.FC<FlexCarouselProps> = ({
       start();
     };
 
-    const metrics = s => {
+    const metrics = (s: any) => {
       const cardH = Math.max(24, s.cardHeight * height);
       const fixed = FIT_ASPECT[s.fit];
       const widths = slots.map(slot => (fixed || slot.aspect) * cardH);
-      const centers = [];
+      const centers: number[] = [];
       let cursor = 0;
       for (let i = 0; i < widths.length; i++) {
         centers.push(cursor + widths[i] / 2);
@@ -606,7 +610,7 @@ export const FlexCarousel: React.FC<FlexCarouselProps> = ({
       return { cardH, widths, centers, gap: s.gap, loop: Math.max(cursor, 1) };
     };
 
-    const nearest = (m, at) => {
+    const nearest = (m: any, at: number) => {
       let best = 0;
       let bestDist = Infinity;
       for (let i = 0; i < m.centers.length; i++) {
@@ -619,19 +623,19 @@ export const FlexCarousel: React.FC<FlexCarouselProps> = ({
       return best;
     };
 
-    const snapPoint = (m, at) => {
+    const snapPoint = (m: any, at: number) => {
       const i = nearest(m, at);
       return at + wrap(m.centers[i] - at, m.loop);
     };
 
-    const remap = (from, to, at) => {
+    const remap = (from: any, to: any, at: number) => {
       const i = nearest(from, at);
       const offset = wrap(at - from.centers[i], from.loop);
       const cycles = Math.round((at - offset - from.centers[i]) / from.loop);
       return cycles * to.loop + to.centers[i] + offset * (to.widths[i] / from.widths[i]);
     };
 
-    const step = (m, delta) => {
+    const step = (m: any, delta: number) => {
       let at = snapPoint(m, goal);
       let index = nearest(m, at);
       const n = m.centers.length;
@@ -650,7 +654,7 @@ export const FlexCarousel: React.FC<FlexCarouselProps> = ({
       start();
     };
 
-    const goTo = (m, index) => {
+    const goTo = (m: any, index: number) => {
       const i = ((index % m.centers.length) + m.centers.length) % m.centers.length;
       goal = goal + wrap(m.centers[i] - goal, m.loop);
       mode = 'spring';
@@ -658,7 +662,7 @@ export const FlexCarousel: React.FC<FlexCarouselProps> = ({
       start();
     };
 
-    const openFocus = index => {
+    const openFocus = (index: number) => {
       focus.index = index;
       focus.pending = -1;
       focus.target = 1;
@@ -683,7 +687,11 @@ export const FlexCarousel: React.FC<FlexCarouselProps> = ({
 
     const introEffects = () => {
       const t = introState.running ? introState.t : introState.done ? 1 : 0;
-      const e = { sceneAlpha: 1, strength: 1, card: null };
+      const e: {
+        sceneAlpha: number;
+        strength: number;
+        card: ((rel: number) => { alpha: number; x: number; y: number; scale: number }) | null;
+      } = { sceneAlpha: 1, strength: 1, card: null };
       if (!introState.done && !introState.running) {
         e.sceneAlpha = 0;
         e.strength = 0;
@@ -693,7 +701,7 @@ export const FlexCarousel: React.FC<FlexCarouselProps> = ({
       const kind = introState.kind;
       if (kind === 'rise') {
         e.strength = easeInOut((t - 0.3) / 0.65);
-        e.card = rel => {
+        e.card = (rel: number) => {
           const delay = Math.min(Math.abs(rel) / (width * 0.6), 1) * 0.34;
           const local = clamp01((t - delay) / 0.6);
           return {
@@ -705,7 +713,7 @@ export const FlexCarousel: React.FC<FlexCarouselProps> = ({
         };
       } else if (kind === 'bloom') {
         e.strength = easeInOut((t - 0.2) / 0.8);
-        e.card = rel => {
+        e.card = (rel: number) => {
           const delay = Math.min(Math.abs(rel) / (width * 0.6), 1) * 0.25;
           const local = easeOut((t - delay) / 0.55);
           return { alpha: local, x: 0, y: 0, scale: 0.92 + 0.08 * local };
@@ -715,7 +723,7 @@ export const FlexCarousel: React.FC<FlexCarouselProps> = ({
         e.strength = easeOut((t - 0.55) / 0.45);
       } else if (kind === 'deal') {
         e.strength = easeOut((t - 0.45) / 0.5);
-        e.card = rel => {
+        e.card = (rel: number) => {
           const spread = Math.min(Math.abs(rel) / (width * 0.6), 1) * 0.3;
           const local = easeOut((t - 0.12 - spread) / 0.5);
           return { alpha: easeOut((t - spread) / 0.12), x: -rel * (1 - local), y: 0, scale: 1 };
@@ -727,7 +735,7 @@ export const FlexCarousel: React.FC<FlexCarouselProps> = ({
       return e;
     };
 
-    const beginIntro = (s, m) => {
+    const beginIntro = (s: any, m: any) => {
       const kind = reducedMotion && s.intro !== 'none' ? 'fade' : s.intro;
       introState.kind = INTRO_DURATION[kind] ? kind : 'none';
       introState.running = introState.kind !== 'none';
@@ -753,7 +761,7 @@ export const FlexCarousel: React.FC<FlexCarouselProps> = ({
       start();
     };
 
-    const frame = now => {
+    const frame = (now: number) => {
       raf = 0;
       if (!alive) return;
       const s = settingsRef.current;
@@ -1039,12 +1047,12 @@ export const FlexCarousel: React.FC<FlexCarouselProps> = ({
       raf = requestAnimationFrame(frame);
     };
 
-    const localPoint = e => {
+    const localPoint = (e: PointerEvent | MouseEvent): [number, number] => {
       const rect = container.getBoundingClientRect();
       return [e.clientX - rect.left, e.clientY - rect.top];
     };
 
-    const onPointerDown = e => {
+    const onPointerDown = (e: PointerEvent) => {
       if (e.button !== undefined && e.button > 0) return;
       skipIntro();
       const [x, y] = localPoint(e);
@@ -1067,7 +1075,7 @@ export const FlexCarousel: React.FC<FlexCarouselProps> = ({
       start();
     };
 
-    const onPointerMove = e => {
+    const onPointerMove = (e: PointerEvent) => {
       const [x, y] = localPoint(e);
       pointer.x = x;
       pointer.y = y;
@@ -1107,7 +1115,7 @@ export const FlexCarousel: React.FC<FlexCarouselProps> = ({
       start();
     };
 
-    const onPointerUp = e => {
+    const onPointerUp = (e: PointerEvent) => {
       if (!pointer.down || e.pointerId !== pointer.id) return;
       pointer.down = false;
       container.removeAttribute('data-dragging');
@@ -1165,7 +1173,7 @@ export const FlexCarousel: React.FC<FlexCarouselProps> = ({
       start();
     };
 
-    const onWheel = e => {
+    const onWheel = (e: WheelEvent) => {
       const s = settingsRef.current;
       if (!s || e.ctrlKey) return;
       let dx = e.deltaX;
@@ -1188,7 +1196,7 @@ export const FlexCarousel: React.FC<FlexCarouselProps> = ({
       start();
     };
 
-    const onKeyDown = e => {
+    const onKeyDown = (e: KeyboardEvent) => {
       const s = settingsRef.current;
       if (!s) return;
       const m = metrics(s);
@@ -1293,7 +1301,7 @@ export const FlexCarousel: React.FC<FlexCarouselProps> = ({
     <div
       ref={containerRef}
       className={`flex-carousel ${className}`.trim()}
-      style={{ ...style, '--flex-carousel-half': `${Math.min(Math.max(cardHeight, 0.05), 1) * 50}%` }}
+      style={{ ...style, '--flex-carousel-half': `${Math.min(Math.max(cardHeight, 0.05), 1) * 50}%` } as React.CSSProperties}
       role="region"
       aria-roledescription="carousel"
       aria-label="Image carousel"
